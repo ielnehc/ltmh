@@ -35,6 +35,7 @@ This script is free collection of shell scripts for rapid deployment of `LTMH`/`
 
 ## How to use :
 ##centOS does not currently support hhvm as php Compiler interpreter
+##LTMH / LNMH only supports 64-bit operating system (Ubuntu 14.04, Debian7.X)
 
 ```bash
    yum -y install wget screen # for CentOS/Redhat
