@@ -53,7 +53,7 @@ OS_command
 sed -i "s@/usr/local/nginx@$nginx_install_dir@g" /etc/init.d/nginx
 
 mv $nginx_install_dir/conf/nginx.conf{,_bk}
-/bin/cp conf/nginx_h.conf $nginx_install_dir/conf/nginx.conf
+/bin/cp conf/nginx_n.conf $nginx_install_dir/conf/nginx.conf
 
 sed -i "s@/home/wwwroot/default@$home_dir/default@" $nginx_install_dir/conf/nginx.conf
 sed -i "s@/home/wwwlogs@$wwwlogs_dir@g" $nginx_install_dir/conf/nginx.conf
