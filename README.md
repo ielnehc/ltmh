@@ -114,5 +114,5 @@ Memcached:
 ```
 
    For feedback, questions, and to follow the progress of the project: <br />
-   LTMH the latest source install script:http://www.hhvm.biz/forum-48-1.html<br />
+   LTMH the latest source install script:http://www.hhvm.biz/forum-36-1.html<br />
    Thank you very much http://blog.linuxeye.com of yeho, learn a lot, learned a lot of things, thanks again!
