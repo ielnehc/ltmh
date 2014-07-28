@@ -31,7 +31,7 @@ This script is free collection of shell scripts for rapid deployment of `LTMH`/`
    
 - A key to add a virtual host
 - Nginx/Tengine, PHP,HHVM, Redis, phpMyAdmin upgrade script provided
-- A key backup support
+- A key backup support,Automatic qiniu.com cloud storage space
 
 ## How to use :
 ##centOS does not currently support hhvm as php Compiler interpreter
@@ -61,10 +61,7 @@ This script is free collection of shell scripts for rapid deployment of `LTMH`/`
 ## Hown to backup
 
 ```bash
-   ./backup_init.sh ##Backup Initialization 
-   ./backup.sh # Start backup, You can add cron jobs
-   # crontab -l # Examples 
-     0 1 * * * cd ~/ltmh;./backup.sh  > /dev/null 2>&1 &
+   ./backup.sh ##Backup Initialization 
 ```
 
 ## How to manage service
