@@ -57,7 +57,7 @@ if [ "$1" != "--help" ]; then
 	echo "===========================" 
 	echo ""
 	
-	read -p "please enter backup password, the system will automatically use the password backup file encryption and compression, input in the process you will not see this password:" backup_file_compression_password
+	read -p "please enter backup password, the system will automatically use the password backup file encryption and compression:" backup_file_compression_password
 	if [ "$backup_file_compression_password" = "" ]; then
 		echo "Backup Password Error!"
 		echo "Please try it again."
