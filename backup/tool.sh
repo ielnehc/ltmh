@@ -6,7 +6,7 @@ configuration_file=Nginx_conf_$(date +"%Y%m%d").tar.gz
 Compressed_file_name=Data_$(date +"%Y%m%d").zip
 
 daybc=day
-old_backup_data_file_name=Data_$(date -d -$bdblsjday$daybc +"%Y%m%d").zip
+old_backup_data_file_name=Data_$(date -d -$expired_days$daybc +"%Y%m%d").zip
 
 if [ ! -f $local_bankup/$old_backup_data_file_name ]; then 
 rm $local_bankup/$old_backup_data_file_name
