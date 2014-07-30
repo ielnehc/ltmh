@@ -7,7 +7,7 @@ clear
 printf "
 ########################################################################################
 #        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+             #
-# For more information please visit http://www.hhvm.biz/forum-36-1.html                #
+# For more information please visit http://www.hhvmc.com/forum-36-1.html                #
 ########################################################################################
 "
 . ./options.conf
@@ -17,7 +17,7 @@ Input_domain()
 while :
 do
 	echo
-	read -p "Please input domain(example: www.hhvm.biz hhvm.biz): " domain
+	read -p "Please input domain(example: www.hhvmc.com hhvmc.com): " domain
 	if [ -z "`echo $domain | grep '.*\..*'`" ]; then
 		echo -e "\033[31minput error! \033[0m"
 	else
@@ -48,7 +48,7 @@ if [ "$moredomainame_yn" == 'y' ]; then
         while :
         do
                 echo
-                read -p "Type domainname,example(blog.hhvm.biz bbs.hhvm.biz): " moredomain
+                read -p "Type domainname,example(blog.hhvmc.com bbs.hhvmc.com): " moredomain
                 if [ -z "`echo $moredomain | grep '.*\..*'`" ]; then
                         echo -e "\033[31minput error\033[0m"
                 else
@@ -124,7 +124,7 @@ if [ "$anti_hotlinking_yn" == 'y' ];then
 	else
 		domain_allow_all=$domain_allow
 	fi
-	anti_hotlinking=$(echo -e "location ~ .*\.(wma|wmv|asf|mp3|mmf|zip|rar|jpg|gif|png|swf|flv)$ {\n\tvalid_referers none blocked $domain_allow_all;\n\tif (\$invalid_referer) {\n\t\t#rewrite ^/ http://www.hhvm.biz/403.html;\n\t\treturn 403;\n\t\t}\n\t}")
+	anti_hotlinking=$(echo -e "location ~ .*\.(wma|wmv|asf|mp3|mmf|zip|rar|jpg|gif|png|swf|flv)$ {\n\tvalid_referers none blocked $domain_allow_all;\n\tif (\$invalid_referer) {\n\t\t#rewrite ^/ http://www.hhvmc.com/403.html;\n\t\treturn 403;\n\t\t}\n\t}")
 else
 	anti_hotlinking=
 fi
@@ -230,7 +230,7 @@ fi
 printf "
 ########################################################################################
 #        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+             #
-# For more information please visit http://www.hhvm.biz/forum-36-1.html                #
+# For more information please visit http://www.hhvmc.com/forum-36-1.html                #
 ########################################################################################
 "
 echo -e "`printf "%-32s" "Your domain:"`\033[32m$domain\033[0m"
@@ -266,7 +266,7 @@ Create_apache_conf()
 [ ! -d $apache_install_dir/conf/vhost ] && mkdir $apache_install_dir/conf/vhost
 cat > $apache_install_dir/conf/vhost/$domain.conf << EOF
 <VirtualHost *:80>
-    ServerAdmin admin@hhvm.biz 
+    ServerAdmin admin@hhvmc.com 
     DocumentRoot "$vhostdir"
     ServerName $domain
     $Domain_alias
@@ -296,10 +296,10 @@ else
 fi
 
 printf "
-#######################################################################
-#         LAMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+          #
-# For more information please visit http://blog.hhvm.biz/82.html  #
-#######################################################################
+#############################################################################
+#   LTMH/LNMH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+       #
+#   For more information please visit http://www.hhvmc.com/forum-36-1.html   #
+############################################################################"
 "
 echo -e "`printf "%-32s" "Your domain:"`\033[32m$domain\033[0m"
 echo -e "`printf "%-32s" "Virtualhost conf:"`\033[32m$apache_install_dir/conf/vhost/$domain.conf\033[0m"
@@ -360,7 +360,7 @@ fi
 [ ! -d $apache_install_dir/conf/vhost ] && mkdir $apache_install_dir/conf/vhost
 cat > $apache_install_dir/conf/vhost/$domain.conf << EOF
 <VirtualHost *:8080>
-    ServerAdmin admin@hhvm.biz
+    ServerAdmin admin@hhvmc.com
     DocumentRoot "$vhostdir"
     ServerName $domain
     $Domain_alias
@@ -388,10 +388,10 @@ else
 	exit 1
 fi
 printf "
-########################################################################################
-#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+             #
-# For more information please visit http://www.hhvm.biz/forum-36-1.html                #
-########################################################################################
+#############################################################################
+#   LTMH/LNMH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+        #
+#   For more information please visit http://www.hhvmc.com/forum-36-1.html   #
+##############################################################################"
 "
 echo -e "`printf "%-32s" "Your domain:"`\033[32m$domain\033[0m"
 echo -e "`printf "%-32s" "Nginx Virtualhost conf:"`\033[32m$web_install_dir/conf/vhost/$domain.conf\033[0m"

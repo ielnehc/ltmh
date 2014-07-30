@@ -1,4 +1,4 @@
-
+#!/bin/bash
 # Check if user is root
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, use sudo sh $0"
@@ -11,18 +11,18 @@ echo "Add Virtual Host for LTMH  ,  Written by Andy "
 echo "========================================================================="
 echo "LTMH is a tool to auto-compile & install Tengine+MySQL+HHVM on Linux "
 echo "This script is a tool to add virtual host for tengine "
-echo "For more information please visit http://www.hhvm.biz"
+echo "For more information please visit http://www.hhvmc.com"
 echo ""
 echo "========================================================================="
 
 if [ "$1" != "--help" ]; then
 
 
-	domain="www.hhvm.biz"
+	domain="www.hhvmc.com"
 	echo "Please input domain:"
-	read -p "(Default domain: www.hhvm.biz):" domain
+	read -p "(Default domain: www.hhvmc.com):" domain
 	if [ "$domain" = "" ]; then
-		domain="www.hhvm.biz)"
+		domain="www.hhvmc.com)"
 	fi
 	if [ ! -f "/usr/local/nginx/conf/vhost/$domain.conf" ]; then
 	echo "==========================="
@@ -39,7 +39,7 @@ if [ "$1" != "--help" ]; then
 
 	if [ "$add_more_domainame" == 'y' ]; then
 
-	  echo "Type domainname,example(bbs.hhvm.biz forums.hhvm.biz ip.hhvm.biz):"
+	  echo "Type domainname,example(bbs.hhvmc.com forums.hhvmc.com ip.hhvmc.com):"
 	  read moredomain
           echo "==========================="
           echo domain list="$moredomain"
@@ -180,7 +180,7 @@ echo "Restart Nginx......"
 echo "========================================================================="
 echo "Add Virtual Host for LTMH  ,  Written by Andy "
 echo "========================================================================="
-echo "For more information please visit http://www.hhvm.biz"
+echo "For more information please visit http://www.hhvmc.com"
 echo ""
 echo "Your domain:$domain"
 echo "Directory of $domain:$vhostdir"

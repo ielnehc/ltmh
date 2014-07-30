@@ -1,4 +1,4 @@
-
+#!/bin/bash
 Install_PHP-5-3()
 {
 cd $ltmh_dir/src

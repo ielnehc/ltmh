@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 if [ -f /etc/redhat-release ];then
         OS=CentOS

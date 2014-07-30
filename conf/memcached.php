@@ -41,4 +41,4 @@ echo "<br>";
 //关闭连接
 $mem->close();
 ?>
-Memcached Test tools for <a href="http://www.hhvm.biz" target="_blank">LTMH一键安装包</a> <a href="http://www.hhvm.biz/forum-48-1.html" target="_blank">Technical support</a>
+Memcached Test tools for <a href="http://www.hhvmc.com" target="_blank">LTMH一键安装包</a> <a href="http://www.hhvmc.com/thread-17-1-1.html" target="_blank">Technical support</a>

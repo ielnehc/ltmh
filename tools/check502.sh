@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 CheckURL="http://www.hhvm.biz"
 

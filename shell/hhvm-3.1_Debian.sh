@@ -1,4 +1,4 @@
-
+#!/bin/bash
 Install_hhvm()
 {
 cd $ltmh_dir/src

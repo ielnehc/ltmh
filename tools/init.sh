@@ -1,4 +1,4 @@
-
+#!/bin/bash
 INIT()
 {
 cd $ltmh_dir/src

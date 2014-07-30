@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 Install_PHP-5-5()
 {

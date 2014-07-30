@@ -1,4 +1,4 @@
-
+#!/bin/bash
 Install_MySQL-5-6()
 {
 cd $ltmh_dir/src

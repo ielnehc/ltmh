@@ -1,3 +1,4 @@
+#!/bin/bash
 
 Install_MySQL-5-5()
 {

@@ -1,4 +1,4 @@
-
+#!/bin/bash
 Install_ngx_pagespeed()
 {
 cd $ltmh_dir/src

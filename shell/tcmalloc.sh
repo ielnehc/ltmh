@@ -1,4 +1,4 @@
-
+#!/bin/bash
 Install_tcmalloc()
 {
 cd $ltmh_dir/src

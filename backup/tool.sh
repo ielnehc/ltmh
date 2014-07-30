@@ -37,7 +37,7 @@ cp $Compressed_file_name $local_bankup/bf_tmp/$SJS/$Compressed_file_name
 
 $scriptdir/qrsync -skipsym $scriptdir/$con_file
 
-echo "The site data backup, the backup download address：$qiniu_space/$SJS/$Compressed_file_name" >> backup_ok.txt
+echo "The site data backup, the backup download address $qiniu_space/$SJS/$Compressed_file_name" >> backup_ok.txt
 
 rm backup_ok.txt
 cd $local_bankup

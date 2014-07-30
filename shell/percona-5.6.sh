@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 Install_Percona-5-6()
 {

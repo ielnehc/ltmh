@@ -14,7 +14,7 @@ clear
 printf "
 #############################################################################
 #   LTMH/LNMH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+       #
-#   For more information please visit http://www.hhvm.biz/forum-36-1.html    
+#   For more information please visit http://www.hhvmc.com/forum-36-1.html    
 #       According to the command operation, the backup site data you         
 ############################################################################"
 export LANG=zh_CN.UTF-8
@@ -57,7 +57,7 @@ if [ "$1" != "--help" ]; then
 	echo "===========================" 
 	echo ""
 	
-	read -p "please enter backup password, the system will automatically use the password backup file encryption and compression:" backup_file_compression_password
+	read -p "please enter backup password, the system will automatically use the password backup file encryption and compression, input in the process you will not see this password:" backup_file_compression_password
 	if [ "$backup_file_compression_password" = "" ]; then
 		echo "Backup Password Error!"
 		echo "Please try it again."
@@ -146,10 +146,21 @@ if [ "$1" != "--help" ]; then
 	echo "==========================="	
 	echo ""
 	
+	echo "Please input Your domain:"
+	read -p "(Default: hhvmc.com):" domain_name
+	if [ "$domain_name" = "" ]; then
+		domain_name=hhvmc.com
+	fi
+	echo "==========================="
+	echo "Your domain is $domain_name"
+	echo "==========================="	
+	echo ""
+	
+		
 	echo "Please input a line crontab:"
 	read -p "(Default: 10 3 * * *):" backup_time
 	if [ "$backup_time" = "" ]; then
-		backup_time="10 3 * * *"
+		backup_time="01 00 * * *"
 	fi
 	echo "==========================="
 	echo "Your crontab is $backup_time."
@@ -204,13 +215,13 @@ eof
 chmod 777 $scriptdir/qrsync
 cd $scriptdir
 current_time=$(date +"%Y%m%d")
-cat timing_backup_script.sh tool.sh > $current_time.sh
+cat timing_backup_script.sh tool.sh > $domain_name$current_time.sh
 rm timing_backup_script.sh
-chmod -R 777 $current_time.sh
+chmod -R 777 $domain_name$current_time.sh
 
 crontab -l > /tmp/root.crontab
 cat >>/tmp/root.crontab<<eof
-$backup_time $scriptdir/$current_time.sh
+$backup_time $scriptdir/$domain_name$current_time.sh
 eof
 crontab /tmp/root.crontab
 
@@ -218,7 +229,7 @@ echo "========================================================================="
 echo " OK! Success!Congratulations to you!"
 echo ""
 echo "Your local backup hold time :$expired_days day"
-echo "Wellcome to my blog  http://www.hhvm.biz"
+echo "Wellcome to my blog  http://www.hhvmc.com"
 echo "Your task will be in your set time, you can also directly executable file head with time of a script immediately back up now, GOOG LUCK!"
 echo ""
 echo ""

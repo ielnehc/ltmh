@@ -15,7 +15,7 @@ printf "=======================================================================\
 printf "LTMP is a tool to auto-compile & install Tengine+MySQL+PHP on Linux \n"
 printf "This script is a tool to remove php disable functions for ltmp \n"
 printf "\n"
-printf "more information please visit http://www.hhvm.biz \n"
+printf "more information please visit http://www.hhvmc.com \n"
 printf "=======================================================================\n"
 cur_dir=$(pwd)
         
@@ -90,5 +90,5 @@ printf "=======================================================================\
 printf "LTMP is a tool to auto-compile & install Tengine+MySQL+PHP on Linux \n"
 printf "This script is a tool to remove php disable functions for LTMP \n"
 printf "\n"
-printf "For more information please visit http://www.hhvm.biz \n"
+printf "For more information please visit http://www.hhvmc.com \n"
 printf "=======================================================================\n"

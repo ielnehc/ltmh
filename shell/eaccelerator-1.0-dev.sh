@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 Install_eAccelerator-1-0-dev()
 {

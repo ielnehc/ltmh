@@ -1,4 +1,4 @@
-
+#!/bin/bash
 # Check if user is root
 [ $(id -u) != "0" ] && echo "Error: You must be root to run this script" && exit 1 
 
@@ -7,7 +7,7 @@ clear
 echo "#######################################################################"####################
 echo "#         LTMH/LNMH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+               #"
 echo "#                  Upgrade phpMyAdmin for LTMH                                            #"
-echo "# For more information please visit http://www.hhvm.biz/forum-36-1.html                   #"
+echo "# For more information please visit http://www.hhvmc.com/forum-36-1.html                   #"
 echo "###########################################################################################"
 
 cd src

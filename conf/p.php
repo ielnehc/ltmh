@@ -143,7 +143,7 @@ elseif ($_POST['act'] == '邮件检测')
 	$mailRe = "邮件发送检测结果：发送";
 	if($_SERVER['SERVER_PORT']==80){$mailContent = "http://".$_SERVER['SERVER_NAME'].($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);}
 	else{$mailContent = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);}
-	$mailRe .= (false !== @mail($_POST["mailAdd"], $mailContent, "This is a test mail!\n\nhttp://www/hhvm.biz")) ? "完成":"失败";
+	$mailRe .= (false !== @mail($_POST["mailAdd"], $mailContent, "This is a test mail!\n\nhttp://www/hhvmc.com")) ? "完成":"失败";
 }	
 	
 // 检测函数支持
@@ -623,7 +623,7 @@ function displayData(dataJSON)
 <div id="page">
     <div id="header">
         <h1>PHP探针</h1>
-        <div id="ltmhlink">for <a href="http://www.hhvm.biz/forum-36-1.html" target="_blank">LTMH一键安装包</a> <a href="http://www.hhvm.biz/forum-48-1.html" target="_blank">技术支持论坛</a></div>
+        <div id="ltmhlink">for <a href="http://www.hhvmc.com/forum-36-1.html" target="_blank">LTMH一键安装包</a> <a href="http://www.hhvmc.com" target="_blank">技术支持论坛</a></div>
     </div>
 
 <!--服务器相关参数-->
@@ -1160,7 +1160,7 @@ else
 <a id="bottom"></a>
 
 <div id="footer">
-&copy; 2014 <a href="http://www.hhvm.biz" target="_blank">LTMH一键安装包</a><br />This Prober was based on Yahei Prober.<br />
+&copy; 2014 <a href="http://www.hhvmc.com" target="_blank">LTMH一键安装包</a><br />This Prober was based on Yahei Prober.<br />
 <?php $run_time = sprintf('%0.4f', microtime_float() - $time_start);?>
 Processed in <?php echo $run_time?> seconds. <?php echo memory_usage();?> memory usage.
 

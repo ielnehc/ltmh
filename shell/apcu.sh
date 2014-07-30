@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 Install_APCU()
 {
