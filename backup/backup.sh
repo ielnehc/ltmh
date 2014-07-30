@@ -57,7 +57,7 @@ if [ "$1" != "--help" ]; then
 	echo "===========================" 
 	echo ""
 	
-	read -p "please enter backup password, the system will automatically use the password backup file encryption and compression, input in the process you will not see this password:" backup_file_compression_password
+	read -p "please enter backup password, the system will automatically use the password backup file encryption and compression:" backup_file_compression_password
 	if [ "$backup_file_compression_password" = "" ]; then
 		echo "Backup Password Error!"
 		echo "Please try it again."
@@ -179,7 +179,7 @@ if [ ! -d $local_bankup ]; then
 fi
 	
 
-con_file=$domain_name$(date +"%Y%m%d").json
+con_file=$(date +"%Y%m%d")$domain_name.json
 cat >>$scriptdir/$con_file<<eof
 {
     "access_key": "$qiniuAccessKey",
@@ -215,13 +215,13 @@ eof
 chmod 777 $scriptdir/qrsync
 cd $scriptdir
 current_time=$(date +"%Y%m%d")
-cat timing_backup_script.sh tool.sh > $domain_name$current_time.sh
+cat timing_backup_script.sh tool.sh > $current_time$domain_name.sh
 rm timing_backup_script.sh
-chmod -R 777 $domain_name$current_time.sh
+chmod -R 777 $current_time$domain_name.sh
 
 crontab -l > /tmp/root.crontab
 cat >>/tmp/root.crontab<<eof
-$backup_time $scriptdir/$domain_name$current_time.sh
+$backup_time $scriptdir/$current_time$domain_name.sh
 eof
 crontab /tmp/root.crontab
 
