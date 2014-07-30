@@ -160,7 +160,7 @@ if [ "$1" != "--help" ]; then
 	echo "Please input a line crontab:"
 	read -p "(Default: 10 3 * * *):" backup_time
 	if [ "$backup_time" = "" ]; then
-		backup_time="01 00 * * *"
+		backup_time="10 3 * * *"
 	fi
 	echo "==========================="
 	echo "Your crontab is $backup_time."
