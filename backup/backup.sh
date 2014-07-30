@@ -179,7 +179,7 @@ if [ ! -d $local_bankup ]; then
 fi
 	
 
-con_file=$(date +"%Y%m%d").json
+con_file=$domain_name$(date +"%Y%m%d").json
 cat >>$scriptdir/$con_file<<eof
 {
     "access_key": "$qiniuAccessKey",
