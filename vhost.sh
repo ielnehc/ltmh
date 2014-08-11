@@ -5,10 +5,10 @@
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 clear
 printf "
-########################################################################################
-#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+             #
-# For more information please visit http://www.hhvmc.com/forum-36-1.html                #
-########################################################################################
+###########################################################################################
+#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+                #
+# For more information please visit http://www.hhvmc.com/thread-17-1-1.html               #
+###########################################################################################
 "
 . ./options.conf
 
@@ -228,10 +228,10 @@ else
 fi
 
 printf "
-########################################################################################
-#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+             #
-# For more information please visit http://www.hhvmc.com/forum-36-1.html                #
-########################################################################################
+###########################################################################################
+#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+                #
+# For more information please visit http://www.hhvmc.com/thread-17-1-1.html               #
+###########################################################################################
 "
 echo -e "`printf "%-32s" "Your domain:"`\033[32m$domain\033[0m"
 echo -e "`printf "%-32s" "Virtualhost conf:"`\033[32m$web_install_dir/conf/vhost/$domain.conf\033[0m"
@@ -296,10 +296,10 @@ else
 fi
 
 printf "
-#############################################################################
-#   LTMH/LNMH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+       #
-#   For more information please visit http://www.hhvmc.com/forum-36-1.html   #
-############################################################################"
+###########################################################################################
+#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+                #
+# For more information please visit http://www.hhvmc.com/thread-17-1-1.html               #
+###########################################################################################
 "
 echo -e "`printf "%-32s" "Your domain:"`\033[32m$domain\033[0m"
 echo -e "`printf "%-32s" "Virtualhost conf:"`\033[32m$apache_install_dir/conf/vhost/$domain.conf\033[0m"
@@ -388,10 +388,10 @@ else
 	exit 1
 fi
 printf "
-#############################################################################
-#   LTMH/LNMH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+        #
-#   For more information please visit http://www.hhvmc.com/forum-36-1.html   #
-##############################################################################"
+###########################################################################################
+#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+                #
+# For more information please visit http://www.hhvmc.com/thread-17-1-1.html               #
+###########################################################################################
 "
 echo -e "`printf "%-32s" "Your domain:"`\033[32m$domain\033[0m"
 echo -e "`printf "%-32s" "Nginx Virtualhost conf:"`\033[32m$web_install_dir/conf/vhost/$domain.conf\033[0m"
