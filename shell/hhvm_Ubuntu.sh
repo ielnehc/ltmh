@@ -7,7 +7,10 @@ cd $ltmh_dir/src
 . ../tools/check_os.sh
 . ../options.conf
 
-src_url=http://dl.hhvm.com/ubuntu/pool/main/h/hhvm/hhvm_3.1.0~trusty_amd64.deb && Download_src
+src_url=http://dl.hiphop-php.com/ubuntu/pool/main/h/hhvm/hhvm_3.1.0~trusty_amd64.deb && Download_src
+#src_url=http://dl.hhvm.com/ubuntu/pool/main/h/hhvm/hhvm_3.1.0~trusty_amd64.deb && Download_src
+#wget http://dl.hiphop-php.com/conf/hhvm.gpg.key | apt-key add -
+#echo deb http://dl.hiphop-php.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list
 wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add -
 echo deb http://dl.hhvm.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list
 apt-get update
