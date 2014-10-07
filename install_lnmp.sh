@@ -382,33 +382,33 @@ done
 
 
 # check jemalloc or tcmalloc 
-if [ "$Web_yn" == 'y' -o "$DB_yn" == 'y' ];then
-        while :
-        do
-                echo
-                read -p "Do you want to use jemalloc or tcmalloc optimize Database and Web server? [y/n]: " je_tc_malloc_yn
-                if [ "$je_tc_malloc_yn" != 'y' -a "$je_tc_malloc_yn" != 'n' ];then
-                        echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-                else
-                        if [ "$je_tc_malloc_yn" == 'y' ];then
-                                echo 'Please select jemalloc or tcmalloc:'
-                                echo -e "\t\033[32m1\033[0m. jemalloc"
-                                echo -e "\t\033[32m2\033[0m. tcmalloc"
-                                while :
-                                do
-                                        read -p "Please input a number:(Default 1 press Enter) " je_tc_malloc
-                                        [ -z "$je_tc_malloc" ] && je_tc_malloc=1
-                                        if [ $je_tc_malloc != 1 -a $je_tc_malloc != 2 ];then
-                                                echo -e "\033[31minput error! Please only input number 1,2\033[0m"
-                                        else
-                                                break
-                                        fi
-                                done
-                        fi
-                        break
-                fi
-        done
-fi
+# if [ "$Web_yn" == 'y' -o "$DB_yn" == 'y' ];then
+#         while :
+#         do
+#                 echo
+#                 read -p "Do you want to use jemalloc or tcmalloc optimize Database and Web server? [y/n]: " je_tc_malloc_yn
+#                 if [ "$je_tc_malloc_yn" != 'y' -a "$je_tc_malloc_yn" != 'n' ];then
+#                         echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
+#                 else
+#                         if [ "$je_tc_malloc_yn" == 'y' ];then
+#                                 echo 'Please select jemalloc or tcmalloc:'
+#                                 echo -e "\t\033[32m1\033[0m. jemalloc"
+#                                 echo -e "\t\033[32m2\033[0m. tcmalloc"
+#                                 while :
+#                                 do
+#                                         read -p "Please input a number:(Default 1 press Enter) " je_tc_malloc
+#                                         [ -z "$je_tc_malloc" ] && je_tc_malloc=1
+#                                         if [ $je_tc_malloc != 1 -a $je_tc_malloc != 2 ];then
+#                                                 echo -e "\033[31minput error! Please only input number 1,2\033[0m"
+#                                         else
+#                                                 break
+#                                         fi
+#                                 done
+#                         fi
+#                         break
+#                 fi
+#         done
+# fi
 
 chmod +x shell/*.sh init/* *.sh
 
@@ -434,13 +434,13 @@ if [ "$gcc_sane_yn" == 'y' ];then
 fi
 
 # jemalloc or tcmalloc
-if [ "$je_tc_malloc_yn" == 'y' -a "$je_tc_malloc" == '1' ];then
+#if [ "$je_tc_malloc_yn" == 'y' -a "$je_tc_malloc" == '1' ];then
 	. shell/jemalloc.sh
 	Install_jemalloc | tee -a $ltmh_dir/install.log
-elif [ "$je_tc_malloc_yn" == 'y' -a "$je_tc_malloc" == '2' ];then
-	. shell/tcmalloc.sh
-	Install_tcmalloc | tee -a $ltmh_dir/install.log
-fi
+# elif [ "$je_tc_malloc_yn" == 'y' -a "$je_tc_malloc" == '2' ];then
+# 	. shell/tcmalloc.sh
+# 	Install_tcmalloc | tee -a $ltmh_dir/install.log
+# fi
 
 # hhvm
 # if [ "$hhvm_yn" == 'y' ] && [ `getconf LONG_BIT` == 64 ] && [ "$OS" == 'Debian' ];then

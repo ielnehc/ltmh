@@ -38,6 +38,6 @@ elif [ -z "`grep '^\[ionCube Loader\]' $php_install_dir/etc/php.ini`" ];then
 zend_extension="$zend_extension"
 EOF
 fi
-[ "$Apache_version" != '1' -a "$Apache_version" != '2' ] && service php-fpm restart || service httpd restart
+service php-fpm restart 
 cd ../
 }

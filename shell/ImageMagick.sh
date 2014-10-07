@@ -6,14 +6,14 @@ cd $ltmh_dir/src
 . ../tools/download.sh
 . ../options.conf
 
-src_url=http://soft.hhvm.biz/php/lib/ImageMagick-6.8.9-5.tar.gz && Download_src
+src_url=http://www.imagemagick.org/download/ImageMagick-6.8.9-8.tar.gz && Download_src
 
-tar xzf ImageMagick-6.8.9-5.tar.gz
-cd ImageMagick-6.8.9-5
+tar xzf ImageMagick-6.8.9-8.tar.gz
+cd ImageMagick-6.8.9-8
 ./configure
 make && make install
 cd ../
-/bin/rm -rf ImageMagick-6.8.9-5
+/bin/rm -rf ImageMagick-6.8.9-8
 ln -s /usr/local/include/ImageMagick-6 /usr/local/include/ImageMagick
 
 if [ -e "$php_install_dir/bin/phpize" ];then

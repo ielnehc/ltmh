@@ -1,19 +1,20 @@
 
 cat /etc/issue
 uname -a
-apt-get install -y apt-spy
-cp /etc/apt/sources.list /etc/apt/sources.list.bak
-apt-spy update
-apt-spy -d stable -a $area -t 5
+apt-get -y update
+# apt-get install -y apt-spy
+# cp /etc/apt/sources.list /etc/apt/sources.list.bak
+# apt-spy update
+# apt-spy -d stable -a $area -t 5
 
-grep null /etc/apt/sources.list.d/apt-spy.list
-if [ $? -eq 0 ]; then
-cat >/etc/apt/sources.list.d/apt-spy.list<<EOF
-deb http://mirror.peer1.net/debian/ stable main #contrib non-free
-deb-src http://mirror.peer1.net/debian/ stable main #contrib non-free
-deb http://security.debian.org/ stable/updates main
-EOF
-fi
+# grep null /etc/apt/sources.list.d/apt-spy.list
+# if [ $? -eq 0 ]; then
+# cat >/etc/apt/sources.list.d/apt-spy.list<<EOF
+# deb http://mirror.peer1.net/debian/ stable main #contrib non-free
+# deb-src http://mirror.peer1.net/debian/ stable main #contrib non-free
+# deb http://security.debian.org/ stable/updates main
+# EOF
+# fi
 
 for Package in apache2 apache2-doc apache2-utils apache2.2-common apache2.2-bin apache2-mpm-prefork apache2-doc apache2-mpm-worker mysql-client mysql-server mysql-common php5 php5-common php5-cgi php5-mysql php5-curl php5-gd libmysql* mysql-*
 do

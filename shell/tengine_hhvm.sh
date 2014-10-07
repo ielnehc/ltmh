@@ -49,15 +49,15 @@ sed -i 's@CFLAGS="$CFLAGS -g"@#CFLAGS="$CFLAGS -g"@' auto/cc/gcc
 sed -i 's@\(.*\)this option allow a potential SSL 2.0 rollback (CAN-2005-2969)\(.*\)@#ifdef SSL_OP_MSIE_SSLV2_RSA_PADDING\n\1this option allow a potential SSL 2.0 rollback (CAN-2005-2969)\2@' src/event/ngx_event_openssl.c
 sed -i 's@\(.*\)SSL_CTX_set_options(ssl->ctx, SSL_OP_MSIE_SSLV2_RSA_PADDING)\(.*\)@\1SSL_CTX_set_options(ssl->ctx, SSL_OP_MSIE_SSLV2_RSA_PADDING)\2\n#endif@' src/event/ngx_event_openssl.c
 
-if [ "$je_tc_malloc" == '1' ];then
-	malloc_module='--with-jemalloc'
-elif [ "$je_tc_malloc" == '2' ];then
-	malloc_module='--with-google_perftools_module'
-	mkdir /tmp/tcmalloc
-	chown -R www.www /tmp/tcmalloc
-fi
+# if [ "$je_tc_malloc" == '1' ];then
+# 	malloc_module='--with-jemalloc'
+# elif [ "$je_tc_malloc" == '2' ];then
+# 	malloc_module='--with-google_perftools_module'
+# 	mkdir /tmp/tcmalloc
+# 	chown -R www.www /tmp/tcmalloc
+# fi
 
-./configure --prefix=$tengine_install_dir --user=www --group=www --with-http_stub_status_module --with-http_ssl_module --with-http_flv_module --with-http_gzip_static_module --with-http_concat_module=shared --with-http_sysguard_module=shared --with-ipv6 --with-http_spdy_module --add-module=../ngx_cache_purge-2.1 --with-http_slice_module=shared --with-http_random_index_module=shared --with-http_secure_link_module=shared --with-http_sysguard_module=shared --with-http_mp4_module=shared --with-http_lua_module=shared --with-luajit-inc=/usr/local/luaJIT/include/luajit-2.0 --with-luajit-lib=/usr/local/luaJIT/lib $malloc_module
+./configure --prefix=$tengine_install_dir --user=www --group=www --with-http_stub_status_module --with-http_ssl_module --with-http_flv_module --with-http_gzip_static_module --with-http_concat_module=shared --with-http_sysguard_module=shared --with-ipv6 --with-http_spdy_module --add-module=../ngx_cache_purge-2.1 --with-http_slice_module=shared --with-http_random_index_module=shared --with-http_secure_link_module=shared --with-http_sysguard_module=shared --with-http_mp4_module=shared --with-http_lua_module=shared --with-luajit-inc=/usr/local/luaJIT/include/luajit-2.0 --with-luajit-lib=/usr/local/luaJIT/lib --with-jemalloc
 make && make install
 if [ -d "$tengine_install_dir" ];then
         echo -e "\033[32mTengine install successfully! \033[0m"
