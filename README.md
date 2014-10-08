@@ -34,8 +34,7 @@ This script is free collection of shell scripts for rapid deployment of `LTMH`/`
 - A key backup support,Automatic qiniu.com cloud storage space
 
 ## How to use :
-##centOS does not currently support hhvm as php Compiler interpreter
-##LTMH / LNMH only supports 64-bit operating system (Ubuntu 14.04, Debian7.X)
+##LTMH / LNMH only supports 64-bit operating system (Ubuntu 14.04, Debian7.X.Centos6.x)
 
 ```bash
    yum -y install wget screen # for CentOS/Redhat
