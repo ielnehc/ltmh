@@ -31,7 +31,7 @@ sed -i 's@CFLAGS="$CFLAGS -g"@#CFLAGS="$CFLAGS -g"@' auto/cc/gcc
 # 	chown -R www.www /tmp/tcmalloc
 # fi
 
-./configure --prefix=$nginx_install_dir --user=www --group=www --with-http_stub_status_module --with-http_ssl_module --with-http_flv_module --with-http_gzip_static_module --with-ld-opt='-ljemalloc'
+./configure --prefix=$nginx_install_dir --user=www --group=www --with-http_stub_status_module --with-http_sub_module --with-http_ssl_module --with-http_flv_module --with-http_gzip_static_module --with-ld-opt='-ljemalloc'
 make && make install
 if [ -d "$nginx_install_dir" ];then
         echo -e "\033[32mNginx install successfully! \033[0m"

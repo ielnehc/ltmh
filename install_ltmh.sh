@@ -42,19 +42,6 @@ do
                 echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
         else
 		[ -e init/init_*.ed -a "$upgrade_yn" == 'y' ] && { echo -e "\033[31mYour system is already upgraded! \033[0m" ; upgrade_yn=n ; }
-                # check sendmail
-		if [ "$OS" != 'Debian' ];then
-	                while :
-	                do
-	                        echo
-	                        read -p "Do you want to install sendmail ? [y/n]: " sendmail_yn
-	                        if [ "$sendmail_yn" != 'y' -a "$sendmail_yn" != 'n' ];then
-	                                echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-	                        else
-	                                break
-	                        fi
-	                done
-		fi
                 break
         fi
 done
@@ -82,15 +69,7 @@ do
                                         echo -e "\033[31minput error! Please only input number 1,2,3\033[0m"
                                 else
                                 if [ $Nginx_version = 1 -o $Nginx_version = 2 ];then
-                                        while :
-                                        do
-                                                read -p "Do you want to install ngx_pagespeed module? [y/n]: " ngx_pagespeed_yn
-                                                if [ "$ngx_pagespeed_yn" != 'y' -a "$ngx_pagespeed_yn" != 'n' ];then
-                                                        echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-                                                else
-                                                        break
-                                                fi
-                                        done
+                                        break;
                                 fi
 
                                 break
@@ -101,6 +80,42 @@ do
         fi
 done
 
+
+# choice database
+while :
+do
+        echo
+        read -p "Do you want to install Database? [y/n]: " DB_yn
+        if [ "$DB_yn" != 'y' -a "$DB_yn" != 'n' ];then
+                echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
+        else
+                if [ "$DB_yn" == 'y' ];then
+                        [ -d "$db_install_dir" ] && { echo -e "\033[31mThe database already installed! \033[0m" ; DB_yn=n ; break ; }
+                        while :
+                        do
+                                echo
+                                echo 'Please select a version of the Database:'
+                                echo -e "\t\033[32m1\033[0m. Install MySQL-5.6"
+                                echo -e "\t\033[32m2\033[0m. Install MySQL-5.5"
+                                echo -e "\t\033[32m3\033[0m. Install MariaDB-10.0"
+                                echo -e "\t\033[32m4\033[0m. Install MariaDB-5.5"
+                                read -p "Please input a number:(Default 1 press Enter) " DB_version
+                                [ -z "$DB_version" ] && DB_version=1
+                                if [ $DB_version != 1 -a $DB_version != 2 -a $DB_version != 3 -a $DB_version != 4 ];then
+                                        echo -e "\033[31minput error! Please only input number 1,2,3,4 \033[0m"
+                                else
+                                        while :
+                                        do
+                                                read -p "Please input the root password of database: " dbrootpwd
+                                                (( ${#dbrootpwd} >= 5 )) && sed -i "s@^dbrootpwd.*@dbrootpwd=$dbrootpwd@" ./options.conf && break || echo -e "\033[31mdatabase root password least 5 characters! \033[0m"
+                                        done
+                                        break
+                                fi
+                        done
+                fi
+                break
+        fi
+done
 
 # check phpMyAdmin
 while :
@@ -136,36 +151,6 @@ done
          fi
  done
 
-
-# check jemalloc or tcmalloc 
-# if [ "$Web_yn" == 'y' ];then
-#         while :
-#         do
-#                 echo
-#                 read -p "Do you want to use jemalloc or tcmalloc optimize  Web server? [y/n]: " je_tc_malloc_yn
-#                 if [ "$je_tc_malloc_yn" != 'y' -a "$je_tc_malloc_yn" != 'n' ];then
-#                         echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-#                 else
-#                         if [ "$je_tc_malloc_yn" == 'y' ];then
-#                                 echo 'Please select jemalloc or tcmalloc:'
-#                                 echo -e "\t\033[32m1\033[0m. jemalloc"
-#                                 echo -e "\t\033[32m2\033[0m. tcmalloc"
-#                                 while :
-#                                 do
-#                                         read -p "Please input a number:(Default 1 press Enter) " je_tc_malloc
-#                                         [ -z "$je_tc_malloc" ] && je_tc_malloc=1
-#                                         if [ $je_tc_malloc != 1 -a $je_tc_malloc != 2 ];then
-#                                                 echo -e "\033[31minput error! Please only input number 1,2\033[0m"
-#                                         else
-#                                                 break
-#                                         fi
-#                                 done
-#                         fi
-#                         break
-#                 fi
-#         done
-# fi
-
 chmod +x shell/*.sh init/* *.sh
 
 # init
@@ -189,30 +174,45 @@ if [ "$gcc_sane_yn" == 'y' ];then
         fi
 fi
 
-# jemalloc or tcmalloc
-#if [ "$je_tc_malloc_yn" == 'y' -a "$je_tc_malloc" == '1' ];then
+# jemalloc 
 	. shell/jemalloc.sh
 	Install_jemalloc | tee -a $ltmh_dir/install.log
-# elif [ "$je_tc_malloc_yn" == 'y' -a "$je_tc_malloc" == '2' ];then
-# 	. shell/tcmalloc.sh
-# 	Install_tcmalloc | tee -a $ltmh_dir/install.log
-# fi
 
+# Database
+if [ "$DB_version" == '1' ];then
+    . shell/mysql-5.6.sh 
+    Install_MySQL-5-6 2>&1 | tee -a $ltmh_dir/install.log 
+elif [ "$DB_version" == '2' ];then
+        . shell/mysql-5.5.sh
+        Install_MySQL-5-5 2>&1 | tee -a $ltmh_dir/install.log
+elif [ "$DB_version" == '3' ];then
+    . shell/mariadb-10.0.sh
+    Install_MariaDB-10-0 2>&1 | tee -a $ltmh_dir/install.log 
+elif [ "$DB_version" == '4' ];then
+    . shell/mariadb-5.5.sh
+    Install_MariaDB-5-5 2>&1 | tee -a $ltmh_dir/install.log 
+fi
 
 # Web server
 if [ "$Nginx_version" == '1' ];then
         . shell/nginx_hhvm.sh
         Install_Nginx 2>&1 | tee -a $ltmh_dir/install.log
-elif [ "$Nginx_version" == '2' ];then
-	. shell/tengine_hhvm.sh
+elif [ "$Nginx_version" == '2' ] && [ "$OS" == 'CentOS' ];then
+	    . shell/tengine_hhvm_centos.sh
+        Install_Tengine 2>&1 | tee -a $ltmh_dir/install.log
+elif [ "$Nginx_version" == '2' ] && [ "$OS" == 'Debian' ];then
+        . shell/tengine_hhvm.sh
+        Install_Tengine 2>&1 | tee -a $ltmh_dir/install.log
+elif [ "$Nginx_version" == '2' ] && [ "$OS" == 'Ubuntu' ];then
+        . shell/tengine_hhvm.sh
         Install_Tengine 2>&1 | tee -a $ltmh_dir/install.log
 fi
 
 # ngx_pagespeed
-if [ "$ngx_pagespeed_yn" == 'y' ];then
-	. shell/ngx_pagespeed.sh
-	Install_ngx_pagespeed 2>&1 | tee -a $ltmh_dir/install.log
-fi
+# if [ "$ngx_pagespeed_yn" == 'y' ];then
+# 	. shell/ngx_pagespeed.sh
+# 	Install_ngx_pagespeed 2>&1 | tee -a $ltmh_dir/install.log
+# fi
 
 # hhvm
 if [ "$OS" == 'CentOS' ] && [ "$hhvm_yn" == 'y' ] && [ `getconf LONG_BIT` == 64 ];then
@@ -234,7 +234,6 @@ if [ "$phpMyAdmin_yn" == 'y' ];then
 fi
 
 
-
 # get db_install_dir and web_install_dir
 . ./options.conf
 
@@ -246,6 +245,10 @@ fi
 
 echo "####################Congratulations########################"
 [ "$Web_yn" == 'y' -a "$Nginx_version" != '3' ] && echo -e "\n`printf "%-32s" "Nginx/Tengine install dir":`\033[32m$web_install_dir\033[0m"
+[ "$DB_yn" == 'y' ] && echo -e "\n`printf "%-32s" "Database install dir:"`\033[32m$db_install_dir\033[0m"
+[ "$DB_yn" == 'y' ] && echo -e "`printf "%-32s" "Database data dir:"`\033[32m$db_data_dir\033[0m"
+[ "$DB_yn" == 'y' ] && echo -e "`printf "%-32s" "Database user:"`\033[32mroot\033[0m"
+[ "$DB_yn" == 'y' ] && echo -e "`printf "%-32s" "Database password:"`\033[32m${dbrootpwd}\033[0m"
 [ "$phpMyAdmin_yn" == 'y' ] && echo -e "\n`printf "%-32s" "phpMyAdmin dir:"`\033[32m$home_dir/default/phpMyAdmin\033[0m"
 [ "$phpMyAdmin_yn" == 'y' ] && echo -e "`printf "%-32s" "phpMyAdmin Control Panel url:"`\033[32mhttp://$local_IP/phpmyadmin\033[0m"
 [ "$hhvm_yn" == 'y' ] && [ `getconf LONG_BIT` == 64 ] && echo -e "\n`printf "%-32s" "hhvm install dir:"`\033[32m$hhvm_install_dir\033[0m"

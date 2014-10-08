@@ -1,6 +1,7 @@
 
 
 cd src
+yum -y install wget
 . ../tools/download.sh
 src_url=http://soft.hhvm.biz/centOS/yum-3.4.3.tar.gz && Download_src
 tar zxf yum-3.4.3.tar.gz
@@ -49,19 +50,28 @@ yum check-update
 [ "$upgrade_yn" == 'y' ] && yum -y upgrade
 
 # Install needed packages
-for Package in gcc gcc-c++ make autoconf mysql mysql-server libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel libxslt-devel libevent-devel libtool libtool-ltdl bison gd-devel vim-enhanced pcre-devel zip unzip ntpdate sysstat patch bc expect rsync
+rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+for Package in gcc gcc-c++ make autoconf openssl openssl-devel vim-enhanced unzip ntpdate sysstat patch bc expect rsync libmcrypt-devel glog-devel jemalloc-devel tbb-devel libdwarf-devel mysql-devellibxml2-devel libicu-devel pcre-devel gd-devel boost-devel sqlite-devel pam-devel bzip2-devel oniguruma-devel openldap-devel readline-devel libc-client-devel libcap-devel libevent-devel libcurl-devel libmemcached-devel htop
 do
 	yum -y install $Package
 done
 
-# use gcc-4.4
+rpm -Uvh http://soft.hhvmc.com/dl/repo/gleez-repo-6-0.el6.noarch.rpm
+rpm -Uvh http://rpms.famillecollet.com/enterprise/6/remi/x86_64/remi-release-6.5-1.el6.remi.noarch.rpm
+yum --enablerepo=remi -y install libwebp mysql mysql-devel mysql-lib
+yum --nogpgcheck -y install hhvm-3.3.0
+service hhvm start
+service hhvm stop
+
+#use gcc-4.4
 if [ -n "`gcc --version | head -n1 | grep '4\.1\.'`" ];then
         yum -y install gcc44 gcc44-c++ libstdc++44-devel
 	export CC="gcc44" CXX="g++44"
 fi
 
-# check sendmail
-[ "$sendmail_yn" == 'y' ] && yum -y install sendmail && service sendmail restart
+# # check sendmail
+# [ "$sendmail_yn" == 'y' ] && yum -y install sendmail && service sendmail restart
 
 # closed Unnecessary services and remove obsolete rpm package
 for Service in `chkconfig --list | grep 3:on | awk '{print $1}'`;do chkconfig --level 3 $Service off;done
@@ -173,37 +183,37 @@ EOF
 service iptables restart
 
 # install tmux
-if [ ! -e "`which tmux`" ];then
-	src_url=http://downloads.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.21-stable.tar.gz && Download_src 
-	src_url=http://downloads.sourceforge.net/project/tmux/tmux/tmux-1.8/tmux-1.8.tar.gz && Download_src 
-	tar xzf libevent-2.0.21-stable.tar.gz
-	cd libevent-2.0.21-stable
-	./configure
-	make && make install
-	cd ..
+# if [ ! -e "`which tmux`" ];then
+# 	src_url=http://downloads.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.21-stable.tar.gz && Download_src 
+# 	src_url=http://downloads.sourceforge.net/project/tmux/tmux/tmux-1.8/tmux-1.8.tar.gz && Download_src 
+# 	tar xzf libevent-2.0.21-stable.tar.gz
+# 	cd libevent-2.0.21-stable
+# 	./configure
+# 	make && make install
+# 	cd ..
 
-	tar xzf tmux-1.8.tar.gz
-	cd tmux-1.8
-	CFLAGS="-I/usr/local/include" LDFLAGS="-L//usr/local/lib" ./configure
-	make && make install
-	cd ..
+# 	tar xzf tmux-1.8.tar.gz
+# 	cd tmux-1.8
+# 	CFLAGS="-I/usr/local/include" LDFLAGS="-L//usr/local/lib" ./configure
+# 	make && make install
+# 	cd ..
 
-	if [ `getconf WORD_BIT` == 32 ] && [ `getconf LONG_BIT` == 64 ];then
-	    ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
-	else
-	    ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib/libevent-2.0.so.5
-	fi
-fi
+# 	if [ `getconf WORD_BIT` == 32 ] && [ `getconf LONG_BIT` == 64 ];then
+# 	    ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
+# 	else
+# 	    ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib/libevent-2.0.so.5
+# 	fi
+# fi
 
 # install htop
-if [ ! -e "`which htop`" ];then
-	src_url=http://hisham.hm/htop/releases/1.0.3/htop-1.0.3.tar.gz && Download_src 
-	tar xzf htop-1.0.3.tar.gz
-	cd htop-1.0.3
-	./configure
-	make && make install
-	cd ..
-fi
+# if [ ! -e "`which htop`" ];then
+# 	src_url=http://hisham.hm/htop/releases/1.0.3/htop-1.0.3.tar.gz && Download_src 
+# 	tar xzf htop-1.0.3.tar.gz
+# 	cd htop-1.0.3
+# 	./configure
+# 	make && make install
+# 	cd ..
+# fi
 cd ..
 . /etc/profile
 . ~/.bashrc

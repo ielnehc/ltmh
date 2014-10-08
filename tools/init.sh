@@ -11,6 +11,7 @@ src_url=https://gist.githubusercontent.com/ck-on/4959032/raw/0b871b345fd6cfcd6d2
 /bin/cp $ltmh_dir/conf/index.html /home/wwwroot/default/index.html
 /bin/cp $ltmh_dir/conf/phpinfo.php /home/wwwroot/default/phpinfo.php
 /bin/cp $ltmh_dir/conf/p.php /home/wwwroot/default/p.php
+ldconfig
 service mysqld restart
 service mysql restart
 service hhvm restart
