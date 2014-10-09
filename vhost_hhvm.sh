@@ -22,7 +22,7 @@ if [ "$1" != "--help" ]; then
 	echo "Please input domain:"
 	read -p "(Default domain: www.hhvmc.com):" domain
 	if [ "$domain" = "" ]; then
-		domain="www.hhvmc.com)"
+		domain="www.hhvmc.com"
 	fi
 	if [ ! -f "/usr/local/nginx/conf/vhost/$domain.conf" ]; then
 	echo "==========================="
@@ -144,9 +144,9 @@ server
 		location ~ [^/]\.php(/|$)
 			{
 				# comment try_files $uri =404; to enable pathinfo
-				try_files $uri =404;
-				fastcgi_pass 127.0.0.1:9000;
+				#fastcgi_pass 127.0.0.1:9000;
 				#fastcgi_pass  unix:/tmp/php-cgi.sock;
+				fastcgi_pass unix:/var/run/hhvm/server.sock;
 				fastcgi_index index.php;
 				include fastcgi.conf;
 				#include pathinfo.conf;

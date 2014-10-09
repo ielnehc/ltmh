@@ -40,7 +40,7 @@ if [ "$Nginx_version" == '1' ];then
 	fi
 	cd ../
 elif [ "$Nginx_version" == '2' ];then
-	$web_install_dir/sbin/dso_tool --add-module=$lnmp_dir/src/ngx_pagespeed-1.9.32.1-beta
+	$web_install_dir/sbin/dso_tool --add-module=$ltmh_dir/src/ngx_pagespeed-1.9.32.1-beta
 	if [ -f "$web_install_dir/modules/ngx_pagespeed.so" ];then
 		sed -i "s@^dso\(.*\)@dso\1\n\tload ngx_pagespeed.so;@" $web_install_dir/conf/nginx.conf
 		mkdir /var/ngx_pagespeed_cache

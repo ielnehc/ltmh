@@ -12,24 +12,12 @@ src_url=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.35.tar.gz &
 src_url=http://labs.frickle.com/files/ngx_cache_purge-2.1.tar.gz && Download_src 
 #src_url=https://github.com/yaoweibin/ngx_http_substitutions_filter_module/archive/master.zip && Download_src 
 src_url=http://tengine.taobao.org/download/tengine-2.0.3.tar.gz && Download_src 
-#src_url=http://luajit.org/download/LuaJIT-2.0.3.tar.gz && Download_src 
 
 tar xzf pcre-8.35.tar.gz
 cd pcre-8.35
 ./configure
 make && make install
 cd ../
-
-# LuaJIT
-# tar -zxvf LuaJIT-2.0.3.tar.gz
-# cd LuaJIT-2.0.3
-# mkdir /usr/local/luaJIT
-# make 
-# make install PREFIX=/usr/local/luaJIT                                                
-# ln -sf LuaJIT-2.0.3 /usr/local/luaJIT/bin/luajit
-# export LUAJIT_LIB=/usr/local/luaJIT/lib
-# export LUAJIT_INC=/usr/local/luaJIT/include/luajit-2.0
-# cd ../
 
 #ngx_cache
 tar zxvf ngx_cache_purge-2.1.tar.gz
@@ -76,12 +64,7 @@ mv $tengine_install_dir/conf/nginx.conf{,_bk}
 /bin/cp conf/nginx_h.conf $tengine_install_dir/conf/nginx.conf
 sed -i "s@/home/wwwroot/default@$home_dir/default@" $tengine_install_dir/conf/nginx.conf
 sed -i "s@/home/wwwlogs@$wwwlogs_dir@g" $tengine_install_dir/conf/nginx.conf
-# [ "$je_tc_malloc" == '2' ] && sed -i 's@^pid\(.*\)@pid\1\ngoogle_perftools_profiles /tmp/tcmalloc;@' $tengine_install_dir/conf/nginx.conf 
-#web firewall
-# mkdir -p /data/logs/hack/
-# chown -R www:www /data/logs/hack/
-# chmod -R 755 /data/logs/hack/
-# /bin/cp -R tools/waf /usr/local/nginx/conf/waf
+
 # worker_cpu_affinity
 sed -i "s@^worker_processes.*@worker_processes auto;\nworker_cpu_affinity auto;\ndso {\n\tload ngx_http_concat_module.so;\n}@" $tengine_install_dir/conf/nginx.conf
 
@@ -104,8 +87,7 @@ EOF
 sed -i "s@^web_install_dir.*@web_install_dir=$tengine_install_dir@" options.conf
 sed -i "s@/home/wwwroot@$home_dir@g" vhost.sh
 sed -i "s@/home/wwwlogs@$wwwlogs_dir@g" vhost.sh
-# ldconfig
-# cp /usr/local/luaJIT/lib/libluajit-5.1.so.2 /usr/lib/libluajit-5.1.so.2
+
 ldconfig
 service nginx start
 }

@@ -25,25 +25,12 @@ mkdir -p $home_dir/default $wwwlogs_dir $ltmh_dir/{src,conf}
 # choice upgrade OS
 while :
 do
-	echo
+        echo
         read -p "Do you want to upgrade operating system ? [y/n]: " upgrade_yn
         if [ "$upgrade_yn" != 'y' -a "$upgrade_yn" != 'n' ];then
                 echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
         else
-		[ -e init/init_*.ed -a "$upgrade_yn" == 'y' ] && { echo -e "\033[31mYour system is already upgraded! \033[0m" ; upgrade_yn=n ; }
-                # check sendmail
-		if [ "$OS" != 'Debian' ];then
-	                while :
-	                do
-	                        echo
-	                        read -p "Do you want to install sendmail ? [y/n]: " sendmail_yn
-	                        if [ "$sendmail_yn" != 'y' -a "$sendmail_yn" != 'n' ];then
-	                                echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-	                        else
-	                                break
-	                        fi
-	                done
-		fi
+                [ -e init/init_*.ed -a "$upgrade_yn" == 'y' ] && { echo -e "\033[31mYour system is already upgraded! \033[0m" ; upgrade_yn=n ; }
                 break
         fi
 done
@@ -71,15 +58,7 @@ do
                                         echo -e "\033[31minput error! Please only input number 1,2,3\033[0m"
                                 else
                                 if [ $Nginx_version = 1 -o $Nginx_version = 2 ];then
-                                        while :
-                                        do
-                                                read -p "Do you want to install ngx_pagespeed module? [y/n]: " ngx_pagespeed_yn
-                                                if [ "$ngx_pagespeed_yn" != 'y' -a "$ngx_pagespeed_yn" != 'n' ];then
-                                                        echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-                                                else
-                                                        break
-                                                fi
-                                        done
+                                        break;
                                 fi
 
                                 break
@@ -108,12 +87,10 @@ do
                                 echo -e "\t\033[32m2\033[0m. Install MySQL-5.5"
                                 echo -e "\t\033[32m3\033[0m. Install MariaDB-10.0"
                                 echo -e "\t\033[32m4\033[0m. Install MariaDB-5.5"
-                                echo -e "\t\033[32m5\033[0m. Install Percona-5.6"
-                                echo -e "\t\033[32m6\033[0m. Install Percona-5.5"
                                 read -p "Please input a number:(Default 1 press Enter) " DB_version
                                 [ -z "$DB_version" ] && DB_version=1
-                                if [ $DB_version != 1 -a $DB_version != 2 -a $DB_version != 3 -a $DB_version != 4 -a $DB_version != 5 -a $DB_version != 6 ];then
-                                        echo -e "\033[31minput error! Please only input number 1,2,3,4,5,6 \033[0m"
+                                if [ $DB_version != 1 -a $DB_version != 2 -a $DB_version != 3 -a $DB_version != 4 ];then
+                                        echo -e "\033[31minput error! Please only input number 1,2,3,4 \033[0m"
                                 else
                                         while :
                                         do
@@ -365,51 +342,6 @@ do
         fi
 done
 
-# check hhvm
-# while :
-# do
-	# echo
-        # read -p "Do you want to install hhvm? [y/n]: " hhvm_yn
-        # if [ "$hhvm_yn" != 'y' -a "$hhvm_yn" != 'n' ];then
-                # echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-        # else
-		# if [ "$hhvm_yn" == 'y' ];then
-			# [ -d "$hhvm_install_dir" ] && { echo -e "\033[31mThe hhvm already installed! \033[0m" ; hhvm_yn=n ; break ; }
-		# fi
-                # break
-        # fi
-# done
-
-
-# check jemalloc or tcmalloc 
-# if [ "$Web_yn" == 'y' -o "$DB_yn" == 'y' ];then
-#         while :
-#         do
-#                 echo
-#                 read -p "Do you want to use jemalloc or tcmalloc optimize Database and Web server? [y/n]: " je_tc_malloc_yn
-#                 if [ "$je_tc_malloc_yn" != 'y' -a "$je_tc_malloc_yn" != 'n' ];then
-#                         echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-#                 else
-#                         if [ "$je_tc_malloc_yn" == 'y' ];then
-#                                 echo 'Please select jemalloc or tcmalloc:'
-#                                 echo -e "\t\033[32m1\033[0m. jemalloc"
-#                                 echo -e "\t\033[32m2\033[0m. tcmalloc"
-#                                 while :
-#                                 do
-#                                         read -p "Please input a number:(Default 1 press Enter) " je_tc_malloc
-#                                         [ -z "$je_tc_malloc" ] && je_tc_malloc=1
-#                                         if [ $je_tc_malloc != 1 -a $je_tc_malloc != 2 ];then
-#                                                 echo -e "\033[31minput error! Please only input number 1,2\033[0m"
-#                                         else
-#                                                 break
-#                                         fi
-#                                 done
-#                         fi
-#                         break
-#                 fi
-#         done
-# fi
-
 chmod +x shell/*.sh init/* *.sh
 
 # init
@@ -434,22 +366,9 @@ if [ "$gcc_sane_yn" == 'y' ];then
 fi
 
 # jemalloc or tcmalloc
-#if [ "$je_tc_malloc_yn" == 'y' -a "$je_tc_malloc" == '1' ];then
 	. shell/jemalloc.sh
 	Install_jemalloc | tee -a $ltmh_dir/install.log
-# elif [ "$je_tc_malloc_yn" == 'y' -a "$je_tc_malloc" == '2' ];then
-# 	. shell/tcmalloc.sh
-# 	Install_tcmalloc | tee -a $ltmh_dir/install.log
-# fi
 
-# hhvm
-# if [ "$hhvm_yn" == 'y' ] && [ `getconf LONG_BIT` == 64 ] && [ "$OS" == 'Debian' ];then
-	# . shell/hhvm-3.1.sh
-	# Install_hhvm 2>&1 | tee -a $ltmh_dir/install.log
-
-	# else 
-	   # echo "Sorry,It's only DebianX64, hhvm not install!"
-# fi
 
 # Database
 if [ "$DB_version" == '1' ];then
@@ -464,12 +383,6 @@ elif [ "$DB_version" == '3' ];then
 elif [ "$DB_version" == '4' ];then
 	. shell/mariadb-5.5.sh
 	Install_MariaDB-5-5 2>&1 | tee -a $ltmh_dir/install.log 
-elif [ "$DB_version" == '5' ];then
-        . shell/percona-5.6.sh
-        Install_Percona-5-6 2>&1 | tee -a $ltmh_dir/install.log
-elif [ "$DB_version" == '6' ];then
-	. shell/percona-5.5.sh 
-	Install_Percona-5-5 2>&1 | tee -a $ltmh_dir/install.log 
 fi
 
 # PHP MySQL Client
@@ -497,12 +410,6 @@ if [ "$Magick" == '1' ];then
 elif [ "$Magick" == '2' ];then
 	. shell/GraphicsMagick.sh
 	Install_GraphicsMagick 2>&1 | tee -a $ltmh_dir/install.log
-fi
-
-# Support HTTP request curls 
-if [ "$pecl_http_yn" == 'y' ];then
-	. shell/pecl_http.sh
-	Install_pecl_http 2>&1 | tee -a $ltmh_dir/install.log
 fi
 
 # ionCube
@@ -542,12 +449,6 @@ if [ "$Nginx_version" == '1' ];then
 elif [ "$Nginx_version" == '2' ];then
 	. shell/tengine.sh
         Install_Tengine 2>&1 | tee -a $ltmh_dir/install.log
-fi
-
-# ngx_pagespeed
-if [ "$ngx_pagespeed_yn" == 'y' ];then
-	. shell/ngx_pagespeed.sh
-	Install_ngx_pagespeed 2>&1 | tee -a $ltmh_dir/install.log
 fi
 
 # Pure-FTPd

@@ -2,15 +2,15 @@ ltmh
 ====
 
 In CentOS / Red Hat Debian and Ubuntu is a complete automation LTMH / LNMH / LNMP / LTMP installation script
-This script is free collection of shell scripts for rapid deployment of `LTMH`/`LNMH`/`LTMP`/ `LNMP` stacks (`Linux`, `Tengine`/`Nginx`, `MySQL`/`MariaDB`/`Percona` and `PHP`/ `hhvm`) for CentOS/Redhat Debian and Ubuntu.
+This script is free collection of shell scripts for rapid deployment of `LTMH`/`LNMH`/`LTMP`/ `LNMP` stacks (`Linux`, `Tengine`/`Nginx`, `MySQL`/`MariaDB`/`PHP`/ `hhvm`) for CentOS/Redhat Debian and Ubuntu.
 
   Script features: 
 - Constant updates 
 - Source compiler installation, most source code is the latest stable version, and downloaded from the official website
 - Fixes some security issues 
-- You can freely choose to install database version (MySQL-5.6, MySQL-5.5, MariaDB-10.0, MariaDB-5.5, Percona-5.6, Percona-5.5)
+- You can freely choose to install database version (MySQL-5.6, MySQL-5.5, MariaDB-10.0, MariaDB-5.5)
 - You can freely choose to install PHP version (php-5.5, php-5.4, php-5.3)
-- You can freely choose to install hhvm version (hhvm3.1.0,hhvm3.2.0)
+- You can freely choose to install hhvm version (hhvm3.1.0,hhvm3.3.0)
 - You can freely choose to install Tengine or Nginx  
 - According to their needs can to install ngx_pagespeed
 - According to their needs can to install ZendOPcache, xcache, APCU, eAccelerator, ionCube and ZendGuardLoader (php-5.4, php-5.3) 
@@ -34,13 +34,12 @@ This script is free collection of shell scripts for rapid deployment of `LTMH`/`
 - A key backup support,Automatic qiniu.com cloud storage space
 
 ## How to use :
-##LTMH / LNMH only supports 64-bit operating system (Ubuntu 14.04, Debian7.X.Centos6.x)
+##LTMH / LNMH only supports 64-bit operating system (Ubuntu 14.04, Debian7.X,Centos6.x)
 
 ```bash
    yum -y install wget screen # for CentOS/Redhat
    #apt-get -y install wget screen # for Debian/Ubuntu 
-   wget -c http://soft.hhvmc.com/ltmh.tar.gz
-   #or wget -c  http://soft.hhvmc.com/ltmh.full.tar.gz # include source packages
+   wget -c http://soft.hhvmc.com/dl/0.4v/ltmh.tar.gz
    tar xzf ltmh.tar.gz
    cd ltmh
    chmod 777 install_lnmp.sh install_ltmh.sh 

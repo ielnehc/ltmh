@@ -75,30 +75,6 @@ echo "set permissions of Virtual Host directory......"
 chown -R www.www $vhostdir
 }
 
-Ngx_pagespeed()
-{
-# check ngx_pagespeed and add ngx_pagespeed
-$web_install_dir/sbin/nginx -V &> ngx_tmp
-if [ ! -z "`cat ngx_tmp | grep ngx_pagespeed`" ];then
-	rm -rf ngx_tmp 
-        while :
-        do
-		echo ''
-                read -p "Do you want to use ngx_pagespeed module? [y/n]: " ngx_pagespeed_yn
-                if [ "$ngx_pagespeed_yn" != 'y' ] && [ "$ngx_pagespeed_yn" != 'n' ];then
-                        echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-                else
-                        if [ "$ngx_pagespeed_yn" == 'y' ];then
-                                ngx_pagespeed='pagespeed on;\npagespeed FileCachePath /var/ngx_pagespeed_cache;\npagespeed RewriteLevel CoreFilters;\npagespeed EnableFilters local_storage_cache;\npagespeed EnableFilters collapse_whitespace,remove_comments;\npagespeed EnableFilters outline_css;\npagespeed EnableFilters flatten_css_imports;\npagespeed EnableFilters move_css_above_scripts;\npagespeed EnableFilters move_css_to_head;\npagespeed EnableFilters outline_javascript;\npagespeed EnableFilters combine_javascript;\npagespeed EnableFilters combine_css;\npagespeed EnableFilters rewrite_javascript;\npagespeed EnableFilters rewrite_css,sprite_images;\npagespeed EnableFilters rewrite_style_attributes;\npagespeed EnableFilters recompress_images;\npagespeed EnableFilters resize_images;\npagespeed EnableFilters convert_meta_tags;\nlocation ~ "\\.pagespeed\\.([a-z]\\.)?[a-z]{2}\\.[^.]{10}\\.[^.]+" { add_header "" ""; }\nlocation ~ "^/ngx_pagespeed_static/" { }\nlocation ~ "^/ngx_pagespeed_beacon$" { }\nlocation /ngx_pagespeed_statistics { allow 127.0.0.1; deny all; }\nlocation /ngx_pagespeed_message { allow 127.0.0.1; deny all; }'
-                        else
-                                ngx_pagespeed=
-                        fi
-                        break
-                fi
-        done
-fi
-}
-
 Nginx_anti_hotlinking()
 {
 while :
@@ -198,7 +174,6 @@ if ( \$query_string ~* ".*[\;'\<\>].*" ){
 	return 404;
 	}
 $anti_hotlinking
-`echo -e $ngx_pagespeed`
 location ~ .*\.(php|php5)?$  {
 	#fastcgi_pass remote_php_ip:9000;
 	fastcgi_pass unix:/dev/shm/php-cgi.sock;
@@ -239,184 +214,9 @@ echo -e "`printf "%-32s" "Directory of:"`\033[32m$vhostdir\033[0m"
 [ "$rewrite_yn" == 'y' ] && echo -e "`printf "%-32s" "Rewrite rule:"`\033[32m$rewrite\033[0m" 
 }
 
-Apache_log()
-{
-while :
-do
-        echo ''
-        read -p "Allow Apache access_log? [y/n]: " access_yn
-        if [ "$access_yn" != 'y' ] && [ "$access_yn" != 'n' ];then
-                echo -e "\033[31minput error! Please only input 'y' or 'n'\033[0m"
-        else
-                break
-        fi
-done
+    Input_domain
+    Nginx_anti_hotlinking
+    Nginx_rewrite
+    Nginx_log
+    Create_nginx_conf
 
-if [ "$access_yn" == 'n' ]; then
-        A_log='CustomLog "/dev/null" common'
-else
-        A_log="CustomLog \"/home/wwwlogs/${domain}_apache.log\" common"
-        echo "You access log file=/home/wwwlogs/${domain}_apache.log"
-fi
-}
-
-Create_apache_conf()
-{
-[ "`$apache_install_dir/bin/apachectl -v | awk -F'.' /version/'{print $2}'`" == '4' ] && R_TMP='Require all granted' || R_TMP=
-[ ! -d $apache_install_dir/conf/vhost ] && mkdir $apache_install_dir/conf/vhost
-cat > $apache_install_dir/conf/vhost/$domain.conf << EOF
-<VirtualHost *:80>
-    ServerAdmin admin@hhvmc.com 
-    DocumentRoot "$vhostdir"
-    ServerName $domain
-    $Domain_alias
-    ErrorLog "/home/wwwlogs/${domain}_error_apache.log"
-    $A_log
-<Directory "$vhostdir">
-    SetOutputFilter DEFLATE
-    Options FollowSymLinks
-    $R_TMP
-    AllowOverride All
-    Order allow,deny
-    Allow from all
-    DirectoryIndex index.html index.php
-</Directory>
-</VirtualHost>
-EOF
-
-echo
-$apache_install_dir/bin/apachectl -t
-if [ $? == 0 ];then
-	echo "Restart Apache......"
-	/etc/init.d/httpd restart
-else
-	rm -rf $apache_install_dir/conf/vhost/$domain.conf
-	echo -e "Create virtualhost ... \033[31m[FAILED]\033[0m"
-	exit 1
-fi
-
-printf "
-###########################################################################################
-#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+                #
-# For more information please visit http://www.hhvmc.com/thread-17-1-1.html               #
-###########################################################################################
-"
-echo -e "`printf "%-32s" "Your domain:"`\033[32m$domain\033[0m"
-echo -e "`printf "%-32s" "Virtualhost conf:"`\033[32m$apache_install_dir/conf/vhost/$domain.conf\033[0m"
-echo -e "`printf "%-32s" "Directory of $domain:"`\033[32m$vhostdir\033[0m"
-}
-
-Create_nginx_apache_conf()
-{
-# Nginx/Tengine
-[ ! -d $web_install_dir/conf/vhost ] && mkdir $web_install_dir/conf/vhost
-cat > $web_install_dir/conf/vhost/$domain.conf << EOF
-server {
-listen 80;
-server_name $domain$moredomainame;
-$N_log
-index index.html index.htm index.jsp index.php;
-root $vhostdir;
-#error_page 404 /404.html;
-if ( \$query_string ~* ".*[\;'\<\>].*" ){
-        return 404;
-        }
-$anti_hotlinking
-`echo -e $ngx_pagespeed`
-location / {
-        try_files \$uri @apache;
-        }
-
-location @apache {
-        internal;
-        proxy_pass http://127.0.0.1:8080;
-	}
-
-location ~ .*\.(php|php5)?$ {
-        proxy_pass http://127.0.0.1:8080;
-        }
-location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|ico)$ {
-        expires 30d;
-        }
-
-location ~ .*\.(js|css)?$ {
-        expires 7d;
-        }
-}
-EOF
-
-echo
-$web_install_dir/sbin/nginx -t
-if [ $? == 0 ];then
-        echo "Restart Nginx......"
-        $web_install_dir/sbin/nginx -s reload
-else
-        rm -rf $web_install_dir/conf/vhost/$domain.conf
-	echo -e "Create virtualhost ... \033[31m[FAILED]\033[0m"
-fi
-
-# Apache
-[ "`$apache_install_dir/bin/apachectl -v | awk -F'.' /version/'{print $2}'`" == '4' ] && R_TMP='Require all granted' || R_TMP=
-[ ! -d $apache_install_dir/conf/vhost ] && mkdir $apache_install_dir/conf/vhost
-cat > $apache_install_dir/conf/vhost/$domain.conf << EOF
-<VirtualHost *:8080>
-    ServerAdmin admin@hhvmc.com
-    DocumentRoot "$vhostdir"
-    ServerName $domain
-    $Domain_alias
-    ErrorLog "/home/wwwlogs/${domain}_error_apache.log"
-    $A_log
-<Directory "$vhostdir">
-    SetOutputFilter DEFLATE
-    Options FollowSymLinks
-    $R_TMP
-    AllowOverride All
-    Order allow,deny
-    Allow from all
-    DirectoryIndex index.html index.php
-</Directory>
-</VirtualHost>
-EOF
-
-echo
-$apache_install_dir/bin/apachectl -t
-if [ $? == 0 ];then
-        echo "Restart Apache......"
-        /etc/init.d/httpd restart
-else
-        rm -rf $apache_install_dir/conf/vhost/$domain.conf
-	exit 1
-fi
-printf "
-###########################################################################################
-#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+                #
-# For more information please visit http://www.hhvmc.com/thread-17-1-1.html               #
-###########################################################################################
-"
-echo -e "`printf "%-32s" "Your domain:"`\033[32m$domain\033[0m"
-echo -e "`printf "%-32s" "Nginx Virtualhost conf:"`\033[32m$web_install_dir/conf/vhost/$domain.conf\033[0m"
-echo -e "`printf "%-32s" "Apache Virtualhost conf:"`\033[32m$apache_install_dir/conf/vhost/$domain.conf\033[0m"
-echo -e "`printf "%-32s" "Directory of:"`\033[32m$vhostdir\033[0m"
-[ "$rewrite_yn" == 'y' ] && echo -e "`printf "%-32s" "Rewrite rule:"`\033[32m$rewrite\033[0m" 
-}
-
-if [ -d "$web_install_dir" -a ! -d "$apache_install_dir" ];then
-	Input_domain
-	Ngx_pagespeed
-	Nginx_anti_hotlinking
-	Nginx_rewrite
-	Nginx_log
-	Create_nginx_conf
-elif [ ! -d "$web_install_dir" -a -d "$apache_install_dir" ];then
-	Input_domain
-	Apache_log
-	Create_apache_conf
-elif [ -d "$web_install_dir" -a -d "$apache_install_dir" ];then
-	Input_domain
-	Ngx_pagespeed
-	Nginx_anti_hotlinking
-	#Nginx_rewrite
-	Nginx_log
-	Apache_log
-	Create_nginx_apache_conf
-fi 

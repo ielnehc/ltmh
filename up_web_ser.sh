@@ -38,7 +38,7 @@ echo -e "Current Nginx Version: \033[32m$Old_nginx_version\033[0m"
 while :
 do
         echo
-        read -p "Please input upgrade Nginx Version(example: 1.4.3): " nginx_version
+        read -p "Please input upgrade Nginx Version(example: 1.4.7): " nginx_version
 	if [ "$nginx_version" != "$Old_nginx_version" ];then
 		[ ! -e "nginx-$nginx_version.tar.gz" ] && wget -c http://nginx.org/download/nginx-$nginx_version.tar.gz > /dev/null 2>&1
 		if [ -e "nginx-$nginx_version.tar.gz" ];then

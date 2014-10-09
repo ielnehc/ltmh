@@ -2,7 +2,7 @@
 
 Install_eAccelerator-0-9()
 {
-cd $lnmp_dir/src
+cd $ltmh_dir/src
 . ../functions/download.sh
 . ../options.conf
 
@@ -38,8 +38,7 @@ eaccelerator.content = "disk_only"
 EOF
 	echo 'kernel.shmmax = 67108864' >> /etc/sysctl.conf
 	sysctl -p
-        [ "$Apache_version" != '1' -a "$Apache_version" != '2' ] && service php-fpm restart || service httpd restart
-else
+         service php-fpm restart 
         echo -e "\033[31meAccelerator module install failed, Please contact the author! \033[0m"
 fi
 cd ..

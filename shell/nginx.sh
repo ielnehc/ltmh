@@ -22,19 +22,11 @@ cd nginx-1.6.2
 
 # Modify Nginx version
 #sed -i 's@#define NGINX_VERSION.*$@#define NGINX_VERSION      "1.2"@' src/core/nginx.h
-#sed -i 's@#define NGINX_VER.*NGINX_VERSION$@#define NGINX_VER          "Linuxeye/" NGINX_VERSION@' src/core/nginx.h
-#sed -i 's@Server: nginx@Server: linuxeye@' src/http/ngx_http_header_filter_module.c
+#sed -i 's@#define NGINX_VER.*NGINX_VERSION$@#define NGINX_VER          "BSW/" NGINX_VERSION@' src/core/nginx.h
+#sed -i 's@Server: nginx@Server: BSW@' src/http/ngx_http_header_filter_module.c
 
 # close debug
 sed -i 's@CFLAGS="$CFLAGS -g"@#CFLAGS="$CFLAGS -g"@' auto/cc/gcc
-
-# if [ "$je_tc_malloc" == '1' ];then
-# 	malloc_module="--with-ld-opt='-ljemalloc'"
-# elif [ "$je_tc_malloc" == '2' ];then
-# 	malloc_module='--with-google_perftools_module'
-# 	mkdir /tmp/tcmalloc
-# 	chown -R www.www /tmp/tcmalloc
-# fi
 
 ./configure --prefix=$nginx_install_dir --user=www --group=www --with-http_stub_status_module --with-http_sub_module --with-http_ssl_module --with-http_flv_module --with-http_gzip_static_module --with-ld-opt='-ljemalloc'
 make && make install

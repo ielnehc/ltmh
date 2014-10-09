@@ -22,11 +22,7 @@ if [ ! -e "`which cmake`" ];then
 fi
 tar zxf mysql-5.5.40.tar.gz
 cd mysql-5.5.40
-# if [ "$je_tc_malloc" == '1' ];then
-#         EXE_LINKER="-DCMAKE_EXE_LINKER_FLAGS='-ljemalloc'"
-# elif [ "$je_tc_malloc" == '2' ];then
-#         EXE_LINKER="-DCMAKE_EXE_LINKER_FLAGS='-ltcmalloc'"
-# fi
+
 make clean
 cmake . -DCMAKE_INSTALL_PREFIX=$mysql_install_dir \
 -DMYSQL_DATADIR=$mysql_data_dir \

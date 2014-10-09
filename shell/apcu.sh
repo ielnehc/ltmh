@@ -2,7 +2,7 @@
 
 Install_APCU()
 {
-cd $lnmp_dir/src
+cd $ltmh_dir/src
 . ../tools/download.sh
 . ../options.conf
 
@@ -21,7 +21,7 @@ apc.shm_size=32M
 apc.ttl=7200
 apc.enable_cli=1
 EOF
-	[ "$Apache_version" != '1' -a "$Apache_version" != '2' ] && service php-fpm restart || service httpd restart
+	service php-fpm restart 
 	/bin/cp apc.php $home_dir/default
 else
         echo -e "\033[31meAPCU module install failed, Please contact the author! \033[0m"

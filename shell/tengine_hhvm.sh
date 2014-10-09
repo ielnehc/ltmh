@@ -76,7 +76,6 @@ mv $tengine_install_dir/conf/nginx.conf{,_bk}
 /bin/cp conf/nginx_h.conf $tengine_install_dir/conf/nginx.conf
 sed -i "s@/home/wwwroot/default@$home_dir/default@" $tengine_install_dir/conf/nginx.conf
 sed -i "s@/home/wwwlogs@$wwwlogs_dir@g" $tengine_install_dir/conf/nginx.conf
-# [ "$je_tc_malloc" == '2' ] && sed -i 's@^pid\(.*\)@pid\1\ngoogle_perftools_profiles /tmp/tcmalloc;@' $tengine_install_dir/conf/nginx.conf 
 #web firewall
 mkdir -p /data/logs/hack/
 chown -R www:www /data/logs/hack/
