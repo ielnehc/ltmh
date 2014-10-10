@@ -39,7 +39,7 @@ This script is free collection of shell scripts for rapid deployment of `LTMH`/`
 ```bash
    yum -y install wget screen # for CentOS/Redhat
    #apt-get -y install wget screen # for Debian/Ubuntu 
-   wget -c http://soft.hhvmc.com/dl/0.4v/ltmh.tar.gz
+   wget -c http://soft.hhvmc.com/dl/latest/ltmh.tar.gz
    tar xzf ltmh.tar.gz
    cd ltmh
    chmod 777 install_lnmp.sh install_ltmh.sh 

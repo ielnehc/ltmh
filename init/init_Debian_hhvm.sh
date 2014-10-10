@@ -3,19 +3,6 @@
 cat /etc/issue
 uname -a
 apt-get -y update
-# apt-get install -y apt-spy
-# cp /etc/apt/sources.list /etc/apt/sources.list.bak
-# apt-spy update
-# apt-spy -d stable -a $area -t 5
-
-# grep null /etc/apt/sources.list.d/apt-spy.list
-# if [ $? -eq 0 ]; then
-# cat >/etc/apt/sources.list.d/apt-spy.list<<EOF
-# deb http://mirror.peer1.net/debian/ stable main #contrib non-free
-# deb-src http://mirror.peer1.net/debian/ stable main #contrib non-free
-# deb http://security.debian.org/ stable/updates main
-# EOF
-# fi
 
 for Package in apache2 apache2-doc apache2-utils apache2.2-common apache2.2-bin apache2-mpm-prefork apache2-doc apache2-mpm-worker mysql-client mysql-server mysql-common php5 php5-common php5-cgi php5-mysql php5-curl php5-gd libmysql* mysql-*
 do
@@ -29,7 +16,7 @@ apt-get -y update
 [ "$upgrade_yn" == 'y' ] && apt-get -y upgrade 
 
 # Install needed packages
-for Package in gcc g++ make autoconf libjpeg8 libjpeg8-dev libpng12-0 libpng12-dev libpng3 libfreetype6 libfreetype6-dev libxml2 libxml2-dev zlib1g zlib1g-dev libc6 libc6-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev curl libcurl3 libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11 libidn11-dev openssl libtool libevent-dev bison libsasl2-dev libxslt1-dev locales libcloog-ppl0 patch vim zip unzip tmux htop wget bc dc expect rsync libpcre3 libpcre3-dev
+for Package in gcc g++ make autoconf ntpdate libjpeg8 libjpeg8-dev libpng12-0 libpng12-dev libpng3 libfreetype6 libfreetype6-dev libxml2 libxml2-dev zlib1g zlib1g-dev libc6 libc6-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev curl libcurl3 libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11 libidn11-dev openssl libtool libevent-dev bison libsasl2-dev libxslt1-dev locales libcloog-ppl0 patch vim zip unzip tmux htop wget bc dc expect rsync libpcre3 libpcre3-dev
 do
 	apt-get -y install $Package
 done

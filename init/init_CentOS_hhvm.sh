@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 cd src
 yum -y install wget
@@ -182,38 +182,6 @@ COMMIT
 EOF
 service iptables restart
 
-# install tmux
-# if [ ! -e "`which tmux`" ];then
-# 	src_url=http://downloads.sourceforge.net/project/levent/libevent/libevent-2.0/libevent-2.0.21-stable.tar.gz && Download_src 
-# 	src_url=http://downloads.sourceforge.net/project/tmux/tmux/tmux-1.8/tmux-1.8.tar.gz && Download_src 
-# 	tar xzf libevent-2.0.21-stable.tar.gz
-# 	cd libevent-2.0.21-stable
-# 	./configure
-# 	make && make install
-# 	cd ..
-
-# 	tar xzf tmux-1.8.tar.gz
-# 	cd tmux-1.8
-# 	CFLAGS="-I/usr/local/include" LDFLAGS="-L//usr/local/lib" ./configure
-# 	make && make install
-# 	cd ..
-
-# 	if [ `getconf WORD_BIT` == 32 ] && [ `getconf LONG_BIT` == 64 ];then
-# 	    ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
-# 	else
-# 	    ln -s /usr/local/lib/libevent-2.0.so.5 /usr/lib/libevent-2.0.so.5
-# 	fi
-# fi
-
-# install htop
-# if [ ! -e "`which htop`" ];then
-# 	src_url=http://hisham.hm/htop/releases/1.0.3/htop-1.0.3.tar.gz && Download_src 
-# 	tar xzf htop-1.0.3.tar.gz
-# 	cd htop-1.0.3
-# 	./configure
-# 	make && make install
-# 	cd ..
-# fi
 cd ..
 . /etc/profile
 . ~/.bashrc

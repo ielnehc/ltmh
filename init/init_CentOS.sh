@@ -1,6 +1,7 @@
-
+#!/bin/bash
 
 cd src
+yum -y install wget
 . ../tools/download.sh
 src_url=http://soft.hhvm.biz/centOS/yum-3.4.3.tar.gz && Download_src
 tar zxf yum-3.4.3.tar.gz
