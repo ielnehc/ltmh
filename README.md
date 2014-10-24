@@ -54,6 +54,7 @@ This script is free collection of shell scripts for rapid deployment of `LTMH`/`
 
 ```bash
    ./vhost.sh
+   ./vhost_hhvm.sh
 ```
 
 ## Hown to backup
