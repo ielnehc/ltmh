@@ -15,7 +15,7 @@ apt-get -y update
 [ "$upgrade_yn" == 'y' ] && apt-get -y upgrade 
 
 # Install needed packages
-for Package in gcc g++ make autoconf ntpdate libjpeg8 libjpeg8-dev libpng12-0 libpng12-dev libpng3 libfreetype6 libfreetype6-dev libxml2 libxml2-dev zlib1g zlib1g-dev libc6 libc6-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev curl libcurl3 libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11 libidn11-dev openssl libtool libevent-dev bison libsasl2-dev libxslt1-dev patch vim zip unzip tmux htop wget bc dc expect rsync libpcre3 libpcre3-dev
+for Package in gcc g++ make autoconf ntpdate libjpeg8 libjpeg8-dev libpng12-0 libpng12-dev libpng3 libfreetype6 libfreetype6-dev libxml2 libxml2-dev zlib1g zlib1g-dev libc6 libc6-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev curl libcurl3 libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11 libidn11-dev openssl libtool libevent-dev bison libsasl2-dev libxslt1-dev patch vim zip unzip tmux htop wget bc dc expect rsync libpcre3 libpcre3-dev libssl-dev
 do
 	apt-get -y install $Package
 done
@@ -26,8 +26,35 @@ elif [ ! -z "`cat /etc/issue | grep 12`" ];then
        apt-get -y install libcloog-ppl0
 fi
 
-# # check sendmail
-# [ "$sendmail_yn" == 'y' ] && apt-get -y install sendmail
+# Modify swap
+Mem=`free -m | awk '/Mem:/{print $2}'`
+Swap=`free -m | grep 'Swap:' | awk '{print $2}'`
+if [ $Swap == 0 ] ;then
+if [ $Swap == 0 ] && [ $Mem -le 512 ];then
+    dd if=/dev/zero of=/swapfile count=1024 bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile    
+elif [ $Swap == 0 ] && [ $Mem -gt 512 -a $Mem -le 1024 ];then
+     dd if=/dev/zero of=/swapfile count=2048 bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile
+elif [ $Swap == 0 ] && [ $Mem -gt 2048 ];then
+    dd if=/dev/zero of=/swapfile count=$Mem bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile
+fi
+
+cat >> /etc/fstab << EOF
+    swapfile           /swap              swap              defaults       0 0
+
+EOF
+fi
 
 # PS1
 [ -z "`cat ~/.bashrc | grep ^PS1`" ] && echo "PS1='\${debian_chroot:+(\$debian_chroot)}\\[\\e[1;32m\\]\\u@\\h\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ '" >> ~/.bashrc 

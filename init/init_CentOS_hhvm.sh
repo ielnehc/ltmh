@@ -49,6 +49,38 @@ yum check-update
 # check upgrade OS
 [ "$upgrade_yn" == 'y' ] && yum -y upgrade
 
+
+# Modify swap
+Mem=`free -m | awk '/Mem:/{print $2}'`
+Swap=`free -m | grep 'Swap:' | awk '{print $2}'`
+if [ $Swap == 0 ] ;then
+if [ $Swap == 0 ] && [ $Mem -le 512 ];then
+    dd if=/dev/zero of=/swapfile count=1024 bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile    
+elif [ $Swap == 0 ] && [ $Mem -gt 512 -a $Mem -le 1024 ];then
+     dd if=/dev/zero of=/swapfile count=2048 bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile
+elif [ $Swap == 0 ] && [ $Mem -gt 2048 ];then
+    dd if=/dev/zero of=/swapfile count=$Mem bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile
+fi
+
+cat >> /etc/fstab << EOF
+    swapfile           /swap              swap              defaults       0 0
+
+EOF
+fi
+
+
 # Install needed packages
 rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 

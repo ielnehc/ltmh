@@ -61,8 +61,35 @@ if [ -n "`gcc --version | head -n1 | grep '4\.1\.'`" ];then
 	export CC="gcc44" CXX="g++44"
 fi
 
-# check sendmail
-[ "$sendmail_yn" == 'y' ] && yum -y install sendmail && service sendmail restart
+# Modify swap
+Mem=`free -m | awk '/Mem:/{print $2}'`
+Swap=`free -m | grep 'Swap:' | awk '{print $2}'`
+if [ $Swap == 0 ] ;then
+if [ $Swap == 0 ] && [ $Mem -le 512 ];then
+    dd if=/dev/zero of=/swapfile count=1024 bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile    
+elif [ $Swap == 0 ] && [ $Mem -gt 512 -a $Mem -le 1024 ];then
+     dd if=/dev/zero of=/swapfile count=2048 bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile
+elif [ $Swap == 0 ] && [ $Mem -gt 2048 ];then
+    dd if=/dev/zero of=/swapfile count=$Mem bs=1M
+    mkswap /swapfile
+    swapon /swapfile
+    chown root:root /swapfile 
+    chmod 0600 /swapfile
+fi
+
+cat >> /etc/fstab << EOF
+    swapfile           /swap              swap              defaults       0 0
+
+EOF
+fi
 
 # closed Unnecessary services and remove obsolete rpm package
 for Service in `chkconfig --list | grep 3:on | awk '{print $1}'`;do chkconfig --level 3 $Service off;done

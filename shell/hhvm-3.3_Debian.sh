@@ -11,6 +11,7 @@ src_url=http://sg.hhvm.mirrors.simon.geek.nz/debian/pool/main/h/hhvm/hhvm_3.3.0~
 wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add -
 echo deb http://dl.hhvm.com/debian wheezy main | tee /etc/apt/sources.list.d/hhvm.list
 apt-get update
+apt-get -y install libgmp-dev libmemcachedutil2
 apt-get -y install hhvm
 apt-get -y install libgmp-dev libmemcachedutil2
 /usr/share/hhvm/install_fastcgi.sh 
