@@ -51,7 +51,7 @@ elif [ $Swap == 0 ] && [ $Mem -gt 2048 ];then
 fi
 
 cat >> /etc/fstab << EOF
-    swapfile           /swap              swap              defaults       0 0
+/swapfile           swap              swap              defaults       0 0
 
 EOF
 fi
