@@ -8,7 +8,7 @@ cd $ltmh_dir/src
 . ../options.conf
 
 #src_url=http://dl.hhvm.com/ubuntu/pool/main/h/hhvm/hhvm_3.1.0~trusty_amd64.deb && Download_src
-src_url=http://sg.hhvm.mirrors.simon.geek.nz/ubuntu/pool/main/h/hhvm/hhvm_3.3.1~trusty_amd64.deb && Download_src
+src_url=http://sg.hhvm.mirrors.simon.geek.nz/ubuntu/pool/main/h/hhvm/hhvm_3.3.0~trusty_amd64.deb && Download_src
 wget -O - http://mirror.mephi.ru/hhvm/conf/hhvm.gpg.key | apt-key add -
 echo deb http://mirror.mephi.ru/hhvm/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list
 apt-get update
@@ -22,7 +22,7 @@ apt-get -y install hhvm
 /usr/share/hhvm/install_fastcgi.sh
 update-rc.d hhvm defaults 
 apt-get -y remove hhvm
-dpkg -i hhvm_3.3.1~trusty_amd64.deb
+dpkg -i hhvm_3.3.0~trusty_amd64.deb
 /usr/share/hhvm/install_fastcgi.sh 
 update-rc.d hhvm defaults 
 service hhvm stop
@@ -38,7 +38,7 @@ EOF
 
 rm -rf libmemcached10_1.0.8-1ubuntu2_amd64.deb
 rm -rf librtmp0_2.4+20121230.gitdf6c518-1_amd64.deb
-rm -rf hhvm_3.3.1~trusty_amd64.deb
+rm -rf hhvm_3.3.0~trusty_amd64.deb
 mv /etc/mysql/my.cnf{,_bk}
 
 }
