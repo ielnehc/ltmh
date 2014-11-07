@@ -89,5 +89,5 @@ sed -i "s@/home/wwwroot@$home_dir@g" vhost.sh
 sed -i "s@/home/wwwlogs@$wwwlogs_dir@g" vhost.sh
 
 ldconfig
-service nginx start
+#service nginx start
 }

@@ -80,7 +80,6 @@ cat >> /etc/fstab << EOF
 EOF
 fi
 
-
 # Install needed packages
 rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
@@ -102,8 +101,6 @@ if [ -n "`gcc --version | head -n1 | grep '4\.1\.'`" ];then
 	export CC="gcc44" CXX="g++44"
 fi
 
-# # check sendmail
-# [ "$sendmail_yn" == 'y' ] && yum -y install sendmail && service sendmail restart
 
 # closed Unnecessary services and remove obsolete rpm package
 for Service in `chkconfig --list | grep 3:on | awk '{print $1}'`;do chkconfig --level 3 $Service off;done

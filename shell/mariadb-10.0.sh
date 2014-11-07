@@ -185,6 +185,7 @@ $mariadb_install_dir/scripts/mysql_install_db --user=mysql --basedir=$mariadb_in
 
 chown mysql.mysql -R $mariadb_data_dir
 service mysqld start
+sleep 10s
 export PATH=$mariadb_install_dir/bin:$PATH
 [ -z "`cat /etc/profile | grep $mariadb_install_dir`" ] && echo "export PATH=$mariadb_install_dir/bin:\$PATH" >> /etc/profile 
 . /etc/profile

@@ -222,7 +222,7 @@ elif [ $Mem -gt 8500 ];then
 fi
 
 [ "$Web_yn" == 'n' ] && sed -i "s@^listen =.*@listen = $local_IP:9000@" $php_install_dir/etc/php-fpm.conf 
-service php-fpm start
+#service php-fpm start
 
 cd ..
 /bin/rm -rf php-5.4.34

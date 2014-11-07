@@ -6,7 +6,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 clear
 printf "
 ###########################################################################################
-#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+                #
+#        LMTH/LNTH/LNMP/LTMP for CentOS 6+ Debian 7+ and Ubuntu 14+                #
 # For more information please visit http://www.hhvmc.com/thread-17-1-1.html               #
 ###########################################################################################
 "
@@ -204,7 +204,7 @@ fi
 
 printf "
 ###########################################################################################
-#        LMTH/LNTH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+                #
+#        LMTH/LNTH/LNMP/LTMP for CentOS 6+ Debian 7+ and Ubuntu 14+                #
 # For more information please visit http://www.hhvmc.com/thread-17-1-1.html               #
 ###########################################################################################
 "

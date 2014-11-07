@@ -183,6 +183,7 @@ $mysql_install_dir/scripts/mysql_install_db --user=mysql --basedir=$mysql_instal
 
 chown mysql.mysql -R $mysql_data_dir
 service mysqld start
+sleep 10s
 export PATH=$mysql_install_dir/bin:$PATH
 [ -z "`cat /etc/profile | grep $mysql_install_dir`" ] && echo "export PATH=$mysql_install_dir/bin:\$PATH" >> /etc/profile 
 . /etc/profile

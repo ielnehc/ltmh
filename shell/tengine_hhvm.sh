@@ -106,5 +106,5 @@ sed -i "s@/home/wwwlogs@$wwwlogs_dir@g" vhost.sh
 ldconfig
 cp /usr/local/luaJIT/lib/libluajit-5.1.so.2 /usr/lib/libluajit-5.1.so.2
 ldconfig
-service nginx start
+#service nginx start
 }

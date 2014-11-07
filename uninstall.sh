@@ -5,7 +5,7 @@
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 clear
 echo "#########################################################################################################"
-echo "#          LTMH/LNMH/LNMP/LTMP for CentOS/RadHat 6+ Debian 6+ and Ubuntu 12+                            #"
+echo "#          LTMH/LNMH/LNMP/LTMP for CentOS 6+ Debian 7+ and Ubuntu 14+                            #"
 echo "#                           Uninstall LTMH/LNMH/LNMP/LTMP                                               #"
 echo "# For more information Please visit http://www.hhvmc.com/forum-36-1.html                                 #"
 echo "#########################################################################################################"

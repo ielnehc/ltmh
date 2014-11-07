@@ -6,7 +6,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 clear
 printf "
 #############################################################################
-#   LTMH/LNMH/LNMP/LTMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+       #
+#   LTMH/LNMH/LNMP/LTMP for CentOS 6+ Debian 7+ and Ubuntu 14+               #
 #   For more information please visit http://www.hhvmc.com/forum-36-1.html   #
 ############################################################################"
 
@@ -208,11 +208,6 @@ elif [ "$Nginx_version" == '2' ] && [ "$OS" == 'Ubuntu' ];then
         Install_Tengine 2>&1 | tee -a $ltmh_dir/install.log
 fi
 
-# ngx_pagespeed
-# if [ "$ngx_pagespeed_yn" == 'y' ];then
-# 	. shell/ngx_pagespeed.sh
-# 	Install_ngx_pagespeed 2>&1 | tee -a $ltmh_dir/install.log
-# fi
 
 # hhvm
 if [ "$OS" == 'CentOS' ] && [ "$hhvm_yn" == 'y' ] && [ `getconf LONG_BIT` == 64 ];then
@@ -239,7 +234,7 @@ fi
 
 # index example
 if [ ! -e "$home_dir/default/index.html" -a "$Web_yn" == 'y' ];then
-	. tools/init.sh
+	. tools/init_hhvm.sh
 	INIT 2>&1 | tee -a $ltmh_dir/install.log 
 fi
 
