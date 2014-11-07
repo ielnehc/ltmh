@@ -91,9 +91,9 @@ done
 rpm -Uvh http://soft.hhvmc.com/dl/repo/gleez-repo-6-0.el6.noarch.rpm
 rpm -Uvh http://rpms.famillecollet.com/enterprise/6/remi/x86_64/remi-release-6.5-1.el6.remi.noarch.rpm
 yum --enablerepo=remi -y install libwebp mysql mysql-devel mysql-lib
-yum --nogpgcheck -y install hhvm-3.3.0
-service hhvm start
-service hhvm stop
+yum --nogpgcheck -y install hhvm
+#service hhvm start
+#service hhvm stop
 
 #use gcc-4.4
 if [ -n "`gcc --version | head -n1 | grep '4\.1\.'`" ];then

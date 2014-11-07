@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # hhvm        Starts The HHVM FastCGI Daemon
-## Author: hhvmc.com
+#
 # chkconfig: - 85 15
 # description: Starts The HHVM FastCGI Daemon
 # processname: hhvm
@@ -26,50 +26,50 @@
 
 if [ "$NETWORKING" = "no" ]
 then
-	exit 0
+    exit 0
 fi
 
 RETVAL=0
 HHVM=/usr/bin/hhvm
-prog="HHVM"
+prog="Hhvm"
 pidfile=${PIDFILE-/var/run/hhvm/pid}
 lockfile=${LOCKFILE-/var/run/hhvm/lock}
 
 CONFIG_FILE="/etc/hhvm/server.ini"
 SYSTEM_CONFIG_FILE="/etc/hhvm/php.ini"
 MODE=daemon
-USER=www-data
+USER=www
 ARGS="--config ${CONFIG_FILE} --config ${SYSTEM_CONFIG_FILE}"
 
 if [ -f /etc/sysconfig/hhvm ]; then
-	. /etc/sysconfig/hhvm
+    . /etc/sysconfig/hhvm
 fi
 
 
 start() {
-	echo -n $"Starting $prog: "
-	dir=$(dirname ${pidfile})
-	[ -d $dir ] || mkdir $dir
-	daemon ${HHVM} --mode ${MODE} --user ${USER} ${ARGS}
-	RETVAL=$?
-	echo
-	[ $RETVAL -eq 0 ] && touch ${lockfile}
+    echo -n $"Starting $prog: "
+    dir=$(dirname ${pidfile})
+    [ -d $dir ] || mkdir $dir
+    daemon ${HHVM} --mode ${MODE} --user ${USER} ${ARGS}
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch ${lockfile}
 }
 
 
 stop() {
-	echo -n $"Stopping $prog: "
-	killproc -p ${pidfile} ${HHVM}
-	RETVAL=$?
-	echo
-	if [ $RETVAL -eq 0 ] ; then
-		rm -f ${lockfile} ${pidfile}
-	fi
+    echo -n $"Stopping $prog: "
+    killproc -p ${pidfile} ${HHVM}
+    RETVAL=$?
+    echo
+    if [ $RETVAL -eq 0 ] ; then
+        rm -f ${lockfile} ${pidfile}
+    fi
 }
 
 restart () {
-	stop
-	start
+    stop
+    start
 }
 
 # See how we were called.
@@ -85,7 +85,7 @@ case "$1" in
         RETVAL=$?
         ;;
   restart)
-	restart
+    restart
         ;;
   *)
         echo $"Usage: $prog {start|stop|status|restart}"
