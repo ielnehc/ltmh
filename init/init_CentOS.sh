@@ -77,7 +77,7 @@ elif [ $Swap == 0 ] && [ $Mem -gt 512 -a $Mem -le 1024 ];then
     swapon /swapfile
     chown root:root /swapfile 
     chmod 0600 /swapfile
-elif [ $Swap == 0 ] && [ $Mem -gt 2048 ];then
+elif [ $Swap == 0 ] && [ $Mem -gt 1500 ];then
     dd if=/dev/zero of=/swapfile count=$Mem bs=1M
     mkswap /swapfile
     swapon /swapfile
