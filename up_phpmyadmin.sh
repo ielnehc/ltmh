@@ -55,7 +55,7 @@ if [ -e "phpMyAdmin-${phpMyAdmin_version}-all-languages.tar.gz" ];then
         echo "Press Ctrl+c to cancel or Press any key to continue..."
         char=`get_char`
 	tar xzf phpMyAdmin-${phpMyAdmin_version}-all-languages.tar.gz 
-	rm -rf $home_dir/default/phpMyAdmin
+	rm -rf $home_dir/default/phpmyadmin
 	/bin/mv phpMyAdmin-${phpMyAdmin_version}-all-languages $home_dir/default/phpmyadmin
 	/bin/cp $home_dir/default/phpmyadmin/{config.sample.inc.php,config.inc.php}
 	mkdir $home_dir/default/phpmyadmin/{upload,save}
