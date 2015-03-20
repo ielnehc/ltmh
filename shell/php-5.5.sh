@@ -11,7 +11,7 @@ src_url=http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz && Download_src
 src_url=http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz && Download_src
 src_url=http://downloads.sourceforge.net/project/mhash/mhash/0.9.9.9/mhash-0.9.9.9.tar.gz && Download_src
 src_url=http://downloads.sourceforge.net/project/mcrypt/MCrypt/2.6.8/mcrypt-2.6.8.tar.gz && Download_src
-src_url=http://www.php.net/distributions/php-5.5.18.tar.gz && Download_src
+src_url=http://www.php.net/distributions/php-5.5.22.tar.gz && Download_src
 
 tar xzf libiconv-1.14.tar.gz
 cd libiconv-1.14
@@ -66,11 +66,11 @@ make && make install
 cd ../
 /bin/rm -rf mcrypt-2.6.8
 
-tar xzf php-5.5.18.tar.gz
+tar xzf php-5.5.22.tar.gz
 useradd -M -s /sbin/nologin www
 wget -O fpm-race-condition.patch 'https://bugs.php.net/patch-display.php?bug_id=65398&patch=fpm-race-condition.patch&revision=1375772074&download=1'
-patch -d php-5.5.18 -p0 < fpm-race-condition.patch
-cd php-5.5.18
+patch -d php-5.5.22 -p0 < fpm-race-condition.patch
+cd php-5.5.22
 make clean
 [ "$PHP_cache" == '1' ] && PHP_cache_tmp='--enable-opcache' || PHP_cache_tmp='--disable-opcache'
 
@@ -236,6 +236,6 @@ fi
 [ "$Web_yn" == 'n' ] && sed -i "s@^listen =.*@listen = $local_IP:9000@" $php_install_dir/etc/php-fpm.conf 
 #service php-fpm start
 cd ..
-/bin/rm -rf php-5.5.18
+/bin/rm -rf php-5.5.22
 cd ..
 }
